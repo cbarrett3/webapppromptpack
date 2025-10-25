@@ -1146,7 +1146,7 @@ export default function Home() {
                   <div className="flex justify-center">
                     {currentStep === onboardingSteps.length - 1 ? (
                       <a
-                        href="https://twitter.com/intent/tweet?text=I'm%20shipping%20with%20webchella!%20Check%20it%20out%20at%20webchella.io%20🚀"
+                        href="https://twitter.com/intent/tweet?text=I'm%20shipping%20with%20webchella!%20Check%20it%20out%20at%20webchella.dev%20🚀"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="relative inline-flex items-center justify-center w-24 h-24 md:w-32 md:h-32 rounded-full transition-all duration-300 hover:scale-110 cursor-pointer"

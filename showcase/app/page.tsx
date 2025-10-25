@@ -96,17 +96,17 @@ export default function Home() {
     const updateButtonSize = () => {
       const width = window.innerWidth;
       if (width >= 1536) { // 2xl
-        setButtonSize('480px');
+        setButtonSize('280px'); // Further reduced from 360px
       } else if (width >= 1280) { // xl
-        setButtonSize('400px');
+        setButtonSize('240px'); // Further reduced from 300px
       } else if (width >= 1024) { // lg
-        setButtonSize('320px');
+        setButtonSize('200px'); // Further reduced from 240px
       } else if (width >= 768) { // md
-        setButtonSize('240px');
+        setButtonSize('160px'); // Further reduced from 200px
       } else if (width >= 640) { // sm
-        setButtonSize('180px');
+        setButtonSize('140px'); // Further reduced from 160px
       } else {
-        setButtonSize('120px');
+        setButtonSize('120px'); // Keep small screens the same
       }
     };
 
@@ -140,7 +140,12 @@ export default function Home() {
           className="fixed top-6 left-6 z-50 group"
           aria-label="Buy me a coffee"
         >
-          <div className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/30 hover:border-white/50 rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-xl relative w-12 h-12 flex items-center justify-center">
+          <div className="bg-white/10 hover:bg-white/20 backdrop-blur-lg rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-xl relative w-12 h-12 flex items-center justify-center" style={{
+            border: '2px solid transparent',
+            backgroundImage: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff), linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1))',
+            backgroundOrigin: 'border-box',
+            backgroundClip: 'padding-box, border-box'
+          }}>
             <span className="text-2xl">☕</span>
           </div>
         </a>
@@ -153,7 +158,12 @@ export default function Home() {
           className="fixed top-6 right-6 z-50 group"
           aria-label="View on GitHub"
         >
-          <div className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/30 hover:border-white/50 rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-xl relative">
+          <div className="bg-white/10 hover:bg-white/20 backdrop-blur-lg rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-xl relative" style={{
+            border: '2px solid transparent',
+            backgroundImage: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff), linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1))',
+            backgroundOrigin: 'border-box',
+            backgroundClip: 'padding-box, border-box'
+          }}>
             <svg
               className="w-6 h-6 text-white group-hover:text-gray-200 transition-colors duration-300"
               fill="currentColor"
@@ -183,7 +193,7 @@ export default function Home() {
               animation: 'rope-sway 4s ease-in-out infinite'
             }}
           >
-            {/* Main rope line - always goes through center */}
+            {/* Main rope line - always goes through center (50, 50) */}
             <path
               d="M 0 15 Q 50 50 100 15"
               stroke="rgba(255, 255, 255, 0.4)"
@@ -214,7 +224,7 @@ export default function Home() {
         </div>
 
         {/* Big Play/Stop Button */}
-        <div className="flex justify-center mb-8 mt-4">
+        <div className="flex justify-center mb-8 mt-2">
         <button 
           id="big-play-button"
           className="group relative bg-white/5 hover:bg-white/8 backdrop-blur-sm rounded-full transition-all duration-500 hover:scale-105 hover:shadow-2xl border-2 overflow-hidden cursor-pointer z-30"
@@ -394,8 +404,8 @@ export default function Home() {
       </audio>
 
         {/* Webchella Title */}
-            <div className="relative z-10 mb-6">
-              <h2 className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-bold text-white text-center cursor-pointer transition-all duration-300 group px-4" style={{ 
+            <div className="relative z-10 mb-12 mt-20 sm:mt-16">
+              <h2 className="text-[3.5rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold text-white text-center cursor-pointer transition-all duration-300 group px-4" style={{ 
                 fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 
                 fontWeight: '900', 
                 letterSpacing: '-0.02em', 
@@ -467,10 +477,21 @@ export default function Home() {
                   }}
                 >a</span>
               </h2>
+              {/* Slogan subtext */}
+              <p className="text-white text-lg sm:text-xl md:text-2xl font-medium text-center mt-4 px-4" style={{
+                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                fontWeight: '500',
+                letterSpacing: '-0.01em',
+                lineHeight: '1.4',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
+                filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.2))'
+              }}>
+                Some of the best coming together to create something beautiful
+              </p>
             </div>
 
             {/* Tech Stack Logos */}
-            <div className="relative z-10 mt-2">
+            <div className="relative z-10 mt-8">
               <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 md:gap-4 px-2 sm:px-4">
           <div 
             className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
@@ -985,7 +1006,7 @@ export default function Home() {
                 </div>
               </div>
                       {/* Big Down Arrow Button */}
-        <div className="flex justify-center mb-4 mt-18">
+        <div className="flex justify-center mb-4 mt-16">
           <button
             onClick={() => {
               const nextSection = document.getElementById('onboarding-section');
@@ -993,7 +1014,7 @@ export default function Home() {
                 nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
             }}
-            className="group bg-white/10 hover:bg-white/20 backdrop-blur-lg border-2 border-white/40 hover:border-white/60 transition-all duration-300 hover:scale-110 hover:shadow-2xl animate-bounce cursor-pointer"
+            className="group bg-black/40 hover:bg-black/60 backdrop-blur-lg transition-all duration-300 hover:scale-110 hover:shadow-2xl animate-bounce cursor-pointer relative"
             style={{
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
               width: '64px',
@@ -1004,10 +1025,18 @@ export default function Home() {
               justifyContent: 'center',
               cursor: 'pointer',
               animation: 'bounce 2s ease-in-out infinite',
-              transformOrigin: 'center'
+              transformOrigin: 'center',
+              border: '2px solid transparent',
+              backgroundImage: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff), linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4))',
+              backgroundOrigin: 'border-box',
+              backgroundClip: 'padding-box, border-box'
             }}
           >
-            <div className="text-white text-4xl font-bold group-hover:scale-125 transition-transform duration-300">↓</div>
+            <div className="text-white text-4xl font-bold group-hover:scale-125 transition-transform duration-300" style={{ 
+              fontSize: '2rem',
+              fontWeight: '400',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
+            }}>↓</div>
           </button>
         </div>
             </div>
@@ -1015,8 +1044,8 @@ export default function Home() {
       {/* Onboarding Section */}
       <div id="onboarding-section" className="relative z-10 min-h-screen bg-gradient-to-b from-transparent via-white/5 to-white/10 py-8 md:py-12 px-4 flex flex-col items-center justify-center">
         {/* Introduction Text */}
-        <div className="text-center max-w-3xl px-4 mb-8 md:mb-12">
-          <div className="backdrop-blur-md rounded-3xl px-6 py-4 relative" style={{
+        <div className="text-center max-w-3xl px-4 mb-8 md:mb-12 mt-20 sm:mt-16">
+          <div className="backdrop-blur-md rounded-3xl px-4 py-3 relative" style={{
             background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.9) 100%)',
             opacity: 0.95
           }}>
@@ -1036,7 +1065,7 @@ export default function Home() {
         </div>
         
         <div className="w-full max-w-4xl mx-auto flex items-center justify-center flex-1">
-          <Card className="backdrop-blur-2xl shadow-2xl w-full h-full min-h-[600px] md:min-h-[650px] flex flex-col rounded-3xl relative" style={{
+          <Card className="backdrop-blur-2xl shadow-2xl w-full h-full min-h-[500px] md:min-h-[550px] flex flex-col rounded-3xl relative" style={{
             background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(15,15,15,0.9) 100%)',
             opacity: 0.95
           }}>
@@ -1062,7 +1091,7 @@ export default function Home() {
                 {onboardingSteps[currentStep].description}
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex-1 flex flex-col py-6 px-4 md:px-6">
+            <CardContent className="flex-1 flex flex-col py-4 px-3 md:px-4">
               {/* Content Area - Takes available space */}
               <div className="flex-1 flex items-center justify-center">
                 <div className="space-y-6 w-full">

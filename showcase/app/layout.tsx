@@ -5,13 +5,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "webchella",
   description:
-    "Some of the best coming together to create something beautiful - A full-stack development framework with AI agents",
+    "The full-stack lineup you've been waiting for - A production-ready framework with Next.js, tRPC, Drizzle, and AI agents",
   icons: {
     icon: '/favicon.ico',
   },
   openGraph: {
     title: "webchella",
-    description: "Some of the best coming together to create something beautiful - A full-stack development framework with AI agents",
+    description: "The full-stack lineup you've been waiting for - A production-ready framework with Next.js, tRPC, Drizzle, and AI agents",
     type: "website",
     siteName: "webchella",
     url: "https://webchella.dev",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "webchella",
-    description: "Some of the best coming together to create something beautiful - A full-stack development framework with AI agents",
+    description: "The full-stack lineup you've been waiting for - A production-ready framework with Next.js, tRPC, Drizzle, and AI agents",
     creator: "@coookiecrisp97",
     images: ["https://webchella.dev/webchella.png"],
   },

@@ -486,7 +486,7 @@ export default function Home() {
                 textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
                 filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.2))'
               }}>
-                Some of the best coming together to create something beautiful
+                The full-stack lineup you've been waiting for
               </p>
             </div>
 

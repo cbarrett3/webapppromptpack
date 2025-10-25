@@ -1,21 +1,94 @@
 import { NextResponse } from 'next/server'
-import fs from 'fs'
-import path from 'path'
 
 export async function GET() {
-  try {
-    // Read the .cursorrules file from the parent directory
-    const cursorRulesPath = path.join(process.cwd(), '..', '.cursorrules')
-    const cursorRulesContent = fs.readFileSync(cursorRulesPath, 'utf8')
-    
-    return new NextResponse(cursorRulesContent, {
-      headers: {
-        'Content-Type': 'text/plain',
-        'Content-Disposition': 'attachment; filename=".cursorrules"',
-      },
-    })
-  } catch (error) {
-    console.error('Error reading .cursorrules file:', error)
-    return new NextResponse('Error reading .cursorrules file', { status: 500 })
-  }
+  const cursorRulesContent = `# Blueberry Prompt Kit - Cursor Rules
+
+## Core Framework
+You are working with the Blueberry Prompt Kit framework - a data-first, back-to-front development methodology with strict technology constraints and quality standards.
+
+## Technology Stack (Non-Negotiable)
+- **Frontend**: Next.js 14+ (App Router) + TypeScript + Tailwind CSS 4+ + shadcn/ui
+- **Backend**: Supabase (PostgreSQL) + Drizzle ORM + tRPC + Zod + Better Auth
+- **External**: Supabase Storage + Resend + Stripe + Vercel AI SDK + trigger.dev
+- **Development**: Vitest + Testing Library + Pino + Vercel
+
+## Development Methodology (Back-to-Front)
+1. **Phase 1: Data Planning** - Plan features, data needs, database schema
+2. **Phase 2: Database Layer** - Create Drizzle schemas and migrations
+3. **Phase 3: API Layer** - Build tRPC procedures and validation
+4. **Phase 4: UI Layer** - Create components and pages
+5. **Phase 5: Polish** - Add loading states, error handling, responsiveness
+6. **Phase 6: Testing** - Write tests and verify functionality
+
+## Code Quality Rules
+- **TypeScript strict mode**: No \`any\` types, explicit returns
+- **ESLint + Prettier**: Consistent formatting
+- **No console.log in production**: Use Pino for logging
+- **Validate all inputs**: Use Zod schemas
+- **Use protected procedures**: No direct database access
+
+## AI Agent Rules
+- **Complete current phase before moving to next phase**
+- **Ask permission to proceed to next phase**
+- **Use only approved technologies**
+- **Follow established patterns**
+- **Document all decisions**
+
+## Project Structure
+\`\`\`
+/app                    # Next.js App Router
+/components             # Reusable components
+  /ui                  # shadcn/ui components
+/lib                   # Core utilities
+  /auth.ts            # Better Auth config
+  /db.ts              # Drizzle setup
+  /trpc.ts            # tRPC setup
+  /validations.ts     # Zod schemas
+/types                # TypeScript definitions
+/hooks                # Custom React hooks
+/server               # Server-only code
+\`\`\`
+
+## Design System
+- **Use shadcn/ui components by default**
+- **Use Tailwind utility classes**
+- **Use CSS variables for theming**
+- **Support light and dark themes**
+- **Follow responsive design patterns**
+
+## Error Handling
+- **Use global error boundaries**
+- **Handle all errors gracefully**
+- **Use toast notifications for user feedback**
+- **Log errors with Pino**
+- **Provide recovery options**
+
+## Testing Strategy
+- **Write unit tests for tRPC procedures**
+- **Write component tests for UI**
+- **Write integration tests for API**
+- **Test accessibility compliance**
+- **Verify end-to-end functionality**
+
+## Security & Performance
+- **Use Better Auth for authentication**
+- **Validate all inputs with Zod**
+- **Use protected procedures for user data**
+- **Optimize bundle size and performance**
+- **Monitor errors and performance**
+
+## Documentation
+- **Document all decisions**
+- **Use clear, concise language**
+- **Provide examples and patterns**
+- **Keep documentation up to date**
+- **Share knowledge and best practices**
+`
+
+  return new NextResponse(cursorRulesContent, {
+    headers: {
+      'Content-Type': 'text/plain',
+      'Content-Disposition': 'attachment; filename=".cursorrules"',
+    },
+  })
 }

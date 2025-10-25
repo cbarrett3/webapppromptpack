@@ -55,7 +55,7 @@ cd my-app && npm run dev
 - **Backend**: Supabase + Drizzle ORM + tRPC + Zod + Better Auth
 - **Development**: Vitest + Testing Library + Pino + Vercel
 
-### **Design Standards (Midday-Inspired)**
+### **Design Standards**
 - **Data-First Design** - Information architecture drives visual design
 - **Immaculate Clean Style** - Every pixel serves a purpose
 - **Sophisticated Dark Themes** - Deep backgrounds with high contrast

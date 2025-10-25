@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const cursorRulesContent = `# webapppromptpack - Cursor Rules
+  const cursorRulesContent = `# webchella - Cursor Rules
 
 ## Core Framework
-You are working with the webapppromptpack framework - a data-first, back-to-front development methodology with strict technology constraints and quality standards.
+You are working with the webchella framework - a data-first, back-to-front development methodology with strict technology constraints and quality standards.
 
 ## Technology Stack (Non-Negotiable)
 - **Frontend**: Next.js 14+ (App Router) + TypeScript + Tailwind CSS 4+ + shadcn/ui

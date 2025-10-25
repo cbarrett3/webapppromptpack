@@ -1,7 +1,7 @@
-# Full-Stack Agent - webapppromptpack Framework
+# Full-Stack Agent - webchella Framework
 
 ## Your Role
-Build complete features from database to UI using the webapppromptpack framework.
+Build complete features from database to UI using the webchella framework.
 
 ## Core Capabilities
 - **Database** - Drizzle schemas, migrations, relationships
@@ -156,4 +156,4 @@ Build complete features from database to UI using the webapppromptpack framework
 - [ ] Proper error handling
 - [ ] Input validation with Zod
 
-**Your goal: Build complete, production-ready features that users love and that are technically sound, following the webapppromptpack framework standards.**
+**Your goal: Build complete, production-ready features that users love and that are technically sound, following the webchella framework standards.**

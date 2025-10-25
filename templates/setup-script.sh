@@ -168,7 +168,7 @@ main() {
     fi
     echo -e "${GREEN}✅ Successfully changed to project directory${NC}"
     
-    # Install webapppromptpack framework dependencies with retry logic
+    # Install webchella framework dependencies with retry logic
     echo -e "${BLUE}📚 Installing core framework dependencies...${NC}"
     
     # Function to install dependencies with retry
@@ -216,10 +216,10 @@ main() {
         error_exit "Failed to install dev dependencies after 3 attempts. Please check your internet connection and try again."
     fi
     
-    # Configure webapppromptpack development environment
-    echo -e "${BLUE}⚙️ Configuring webapppromptpack framework...${NC}"
+    # Configure webchella development environment
+    echo -e "${BLUE}⚙️ Configuring webchella framework...${NC}"
     
-    # Next.js 16 configuration with webapppromptpack optimizations
+    # Next.js 16 configuration with webchella optimizations
     cat > next.config.js << 'EOF'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -267,7 +267,7 @@ module.exports = {
 }
 EOF
 
-    # Strict TypeScript configuration for webapppromptpack
+    # Strict TypeScript configuration for webchella
     cat > tsconfig.json << 'EOF'
 {
   "compilerOptions": {
@@ -309,7 +309,7 @@ EOF
 }
 EOF
 
-    # Modern ESLint flat config for webapppromptpack
+    # Modern ESLint flat config for webchella
     cat > eslint.config.mjs << 'EOF'
 import { defineConfig } from 'eslint/config'
 import nextVitals from 'eslint-config-next/core-web-vitals'
@@ -366,7 +366,7 @@ const eslintConfig = defineConfig([
 export default eslintConfig
 EOF
 
-    # Strict Prettier configuration for webapppromptpack
+    # Strict Prettier configuration for webchella
     cat > .prettierrc << 'EOF'
 {
   "semi": false,
@@ -463,7 +463,7 @@ const config: Config = {
 export default config
 EOF
 
-    # Vitest configuration for webapppromptpack
+    # Vitest configuration for webchella
     cat > vitest.config.ts << 'EOF'
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
@@ -619,7 +619,7 @@ EOF
     # Create development environment file
     cat > .env.local << 'EOF'
 # Development environment variables
-# DATABASE_URL="postgresql://localhost:5432/webapppromptpack_dev"  # Uncomment when you have a database
+# DATABASE_URL="postgresql://localhost:5432/webchella_dev"  # Uncomment when you have a database
 BETTER_AUTH_SECRET="development-secret-key-must-be-at-least-32-characters-long"
 BETTER_AUTH_URL="http://localhost:3000"
 NEXT_PUBLIC_BETTER_AUTH_URL="http://localhost:3000"
@@ -711,7 +711,7 @@ EOF
     update_script "add:devtools" "npm install @tanstack/react-query-devtools"
     
     # Setup scripts
-    update_script "setup:db" "echo 'Setting up database...' && createdb webapppromptpack_dev 2>/dev/null || echo 'Database already exists or PostgreSQL not running'"
+    update_script "setup:db" "echo 'Setting up database...' && createdb webchella_dev 2>/dev/null || echo 'Database already exists or PostgreSQL not running'"
     update_script "setup:auth" "echo 'Setting up Better Auth tables...' && npm run db:push"
     update_script "setup:wizard" "cd setup-wizard && npm install && npm run dev"
     
@@ -725,7 +725,7 @@ EOF
     echo -e "${BLUE}🔧 Initializing Git repository...${NC}"
     git init || error_exit "Failed to initialize Git repository"
     git add . || error_exit "Failed to stage initial files"
-    git commit -m "feat: initial webapppromptpack setup" || error_exit "Failed to create initial commit"
+    git commit -m "feat: initial webchella setup" || error_exit "Failed to create initial commit"
 
     # Setup Git hooks with Husky
     echo -e "${BLUE}🔧 Setting up Git hooks...${NC}"
@@ -774,8 +774,8 @@ module.exports = {
 }
 EOF
 
-    # Create webapppromptpack project structure
-    echo -e "${BLUE}📁 Creating webapppromptpack project structure...${NC}"
+    # Create webchella project structure
+    echo -e "${BLUE}📁 Creating webchella project structure...${NC}"
     mkdir -p components/ui || error_exit "Failed to create components directory"
     mkdir -p lib || error_exit "Failed to create lib directory"
     mkdir -p types || error_exit "Failed to create types directory"
@@ -811,7 +811,7 @@ export function getDb() {
     const connectionString = process.env['DATABASE_URL']
     
     // Skip database connection in development if no DATABASE_URL is set
-    if (!connectionString || connectionString === 'postgresql://localhost:5432/webapppromptpack_dev') {
+    if (!connectionString || connectionString === 'postgresql://localhost:5432/webchella_dev') {
       logger.warn('No database configured, using in-memory storage for development')
       // Return a mock database for development
       return {
@@ -1074,7 +1074,7 @@ import { getDb } from './db'
 
 // Development mode - bypass database when not available
 const isDevelopment = process.env.NODE_ENV === 'development'
-const hasDatabase = process.env['DATABASE_URL'] && process.env['DATABASE_URL'] !== 'postgresql://localhost:5432/webapppromptpack_dev'
+const hasDatabase = process.env['DATABASE_URL'] && process.env['DATABASE_URL'] !== 'postgresql://localhost:5432/webchella_dev'
 
 export const auth = betterAuth({
   database: hasDatabase ? drizzleAdapter(
@@ -1202,7 +1202,7 @@ export default defineConfig({
   out: './drizzle',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env['DATABASE_URL'] || 'postgresql://localhost:5432/webapppromptpack_dev',
+    url: process.env['DATABASE_URL'] || 'postgresql://localhost:5432/webchella_dev',
   },
 })
 EOF
@@ -1242,8 +1242,8 @@ import { Toaster } from 'sonner'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'webapppromptpack App',
-  description: 'Built with webapppromptpack framework',
+  title: 'webchella App',
+  description: 'Built with webchella framework',
 }
 
 export default function RootLayout({
@@ -1554,7 +1554,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
         <h1 className="text-4xl font-bold text-center mb-8">
-          webapppromptpack Framework
+          🎪 webchella
         </h1>
         <div className="text-center">
           <p className="mb-4">Your app is ready to go!</p>
@@ -1573,12 +1573,12 @@ export default function Home() {
 }
 EOF
 
-    # Comprehensive .cursorrules for webapppromptpack
+    # Comprehensive .cursorrules for webchella
     cat > .cursorrules << 'EOF'
-# webapppromptpack - Cursor Rules
+# webchella - Cursor Rules
 
 ## Core Framework
-You are working with the webapppromptpack framework - a data-first, back-to-front development methodology with strict technology constraints and quality standards.
+You are working with the webchella framework - a data-first, back-to-front development methodology with strict technology constraints and quality standards.
 
 ## Technology Stack (Non-Negotiable)
 - **Frontend**: Next.js 16 (App Router) + TypeScript + Tailwind CSS 4+ + shadcn/ui
@@ -1665,7 +1665,7 @@ EOF
     # Setup wizard package.json
     cat > setup-wizard/package.json << 'EOF'
 {
-  "name": "webapppromptpack-setup-wizard",
+  "name": "webchella-setup-wizard",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -1822,7 +1822,7 @@ export default function SetupWizard() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              🚀 webapppromptpack Setup Wizard
+              🚀 webchella Setup Wizard
             </h1>
             <p className="text-xl text-gray-600">
               Let&apos;s get your app configured in minutes
@@ -2080,7 +2080,7 @@ function CompleteStep({ config }: { config: Config }) {
           <li>Copy the generated .env.local file to your project root</li>
           <li>Run <code className="bg-gray-200 px-1 rounded">npm run dev</code> to start your app</li>
           <li>Visit <code className="bg-gray-200 px-1 rounded">http://localhost:3000</code> to see your app</li>
-          <li>Start building with the webapppromptpack methodology!</li>
+          <li>Start building with the webchella methodology!</li>
         </ol>
       </div>
     </div>
@@ -2107,8 +2107,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'webapppromptpack Setup Wizard',
-  description: 'Guided setup for your webapppromptpack project',
+  title: 'webchella Setup Wizard',
+  description: 'Guided setup for your webchella project',
 }
 
 export default function RootLayout({
@@ -2124,8 +2124,8 @@ export default function RootLayout({
 }
 EOF
 
-    # Comprehensive verification of webapppromptpack setup
-    echo -e "${BLUE}🔍 Verifying webapppromptpack framework installation...${NC}"
+    # Comprehensive verification of webchella setup
+    echo -e "${BLUE}🔍 Verifying webchella framework installation...${NC}"
     
     # Function to verify file existence with detailed error messages
     verify_file() {
@@ -2221,7 +2221,7 @@ EOF
     
     # Success message
     echo ""
-    echo -e "${GREEN}🎉 webapppromptpack framework installation complete!${NC}"
+    echo -e "${GREEN}🎉 webchella framework installation complete!${NC}"
     echo ""
     echo -e "${GREEN}✅ Project initialized: $PROJECT_NAME${NC}"
     echo -e "${GREEN}✅ All dependencies installed${NC}"
@@ -2259,7 +2259,7 @@ EOF
     echo -e "   1. Run setup wizard: npm run setup:wizard"
     echo -e "   2. Follow the guided setup process"
     echo -e "   3. Start development: npm run dev"
-    echo -e "   4. Start building with the webapppromptpack methodology"
+    echo -e "   4. Start building with the webchella methodology"
     echo ""
     echo -e "${BLUE}🔧 Quick setup commands:${NC}"
     echo -e "   npm run setup:wizard - Guided setup wizard (recommended)"

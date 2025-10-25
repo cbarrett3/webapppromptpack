@@ -94,37 +94,4 @@ User Login → Better Auth → Session → tRPC Context → Protected Procedures
 
 ## AI Agent Coordination
 
-### **PM Agent**
-- **Roadmap Management** - Strategic planning and feature prioritization
-- **Technical Ticket Writing** - Clear, actionable tickets with acceptance criteria
-- **Design Mindset** - User experience and technical design considerations
-
-### **Full-Stack Agent**
-- **Database Design** - Drizzle schemas, migrations, relationships
-- **API Development** - tRPC procedures, Zod validation, authentication
-- **UI Development** - shadcn/ui components, Tailwind CSS 4+, responsive design
-- **Testing** - Unit, component, and integration tests
-- **Polish** - Loading states, error handling, accessibility
-
-## Agent Workflow
-
-### **PM Agent → Full-Stack Agent Handoff**
-```markdown
-**Feature:** [Feature Name]
-**Priority:** [High/Medium/Low]
-**Effort:** [XS/S/M/L/XL]
-
-**Requirements:**
-- [Clear description of what needs to be built]
-- [User story and acceptance criteria]
-- [Technical specifications]
-- [Design requirements]
-
-**Dependencies:**
-- [Other features that must be completed first]
-- [External dependencies]
-
-**Success Criteria:**
-- [How to know when it's done]
-- [Quality standards to meet]
-```
+See [Agent Documentation](../agents/README.md) for complete agent coordination details.

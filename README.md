@@ -27,24 +27,47 @@ cd my-app && npm run dev
 - ✅ Prettier + Husky + Commitlint
 - ✅ Vitest testing setup
 - ✅ AI guidance via .cursorrules
+- ✅ Example components (Button, Card)
+- ✅ Development scripts for database, quality, and utilities
+
+## 🤖 AI Agent Workflow
+
+### **Two-Agent System**
+1. **PM Agent** writes clear, actionable ticket
+2. **Full-Stack Agent** receives ticket with requirements
+3. **Full-Stack Agent** builds complete feature
+4. **Feature complete** and ready for production
+
+### **Agent Handoff Template**
+```markdown
+**Feature:** [Feature Name]
+**Priority:** [High/Medium/Low]
+**Effort:** [XS/S/M/L/XL]
+
+**Requirements:**
+- [Clear description of what needs to be built]
+- [User story and acceptance criteria]
+- [Technical specifications]
+- [Design requirements]
+
+**Dependencies:**
+- [Other features that must be completed first]
+- [External dependencies]
+
+**Success Criteria:**
+- [How to know when it's done]
+- [Quality standards to meet]
+```
 
 ## 🎯 Core Philosophy
 
 **"Impossible to Mess Up"** - Strict guardrails, proven patterns, systematic methodology.
 
-### Technology Stack
-- **Frontend**: Next.js 16 + TypeScript + Tailwind CSS 4+ + shadcn/ui
-- **Backend**: Supabase + Drizzle ORM + tRPC + Zod + Better Auth
-- **External**: Supabase Storage + Resend + Stripe + Vercel AI SDK
-- **Development**: Vitest + Testing Library + Pino + Vercel
-
-### 6-Phase Development
-1. **Data Planning** - Plan features, data needs, database schema
-2. **Database Layer** - Create Drizzle schemas and migrations  
-3. **API Layer** - Build tRPC procedures and validation
-4. **UI Layer** - Create components and pages
-5. **Polish** - Add loading states, error handling, responsiveness
-6. **Testing** - Write tests and verify functionality
+### Core Features
+- **Data-first development** - Database schema drives everything
+- **Type-safe end-to-end** - tRPC + TypeScript + Zod validation
+- **AI agent coordination** - PM Agent + Full-Stack Agent workflow
+- **Quality enforcement** - Strict linting, testing, and best practices
 
 ## 📁 Project Structure
 
@@ -67,8 +90,9 @@ my-app/
 
 ## 🤖 AI Agent System
 
-- **PM Agent** - Writes tickets, manages roadmaps, has design mindset
-- **Full-Stack Agent** - Builds complete features from database to UI
+Two-agent coordination for efficient development:
+- **PM Agent** - Strategic planning and technical tickets
+- **Full-Stack Agent** - Complete feature implementation
 
 ## 🎨 Design System
 
@@ -77,12 +101,41 @@ my-app/
 - **Data-First Design** - Information architecture drives visual design
 - **Typography Mastery** - Perfect hierarchy and readability
 
+## 🛠️ Troubleshooting
+
+### **Setup Issues**
+- **Node.js version**: Ensure Node.js 18+ is installed
+- **Network issues**: Check internet connection for dependency downloads
+- **Permission errors**: Run with proper permissions on your system
+
+### **Development Issues**
+- **TypeScript errors**: Run `npm run type-check` to identify issues
+- **Lint errors**: Run `npm run lint:fix` to auto-fix issues
+- **Build failures**: Check for missing dependencies or configuration issues
+
+## 🚀 Deployment
+
+### **Vercel Deployment**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel --prod
+```
+
+### **Production Checklist**
+- [ ] All tests passing
+- [ ] Build successful
+- [ ] Environment variables configured
+- [ ] Database migrations applied
+- [ ] Performance optimized
+
 ## 📚 Documentation
 
 - [Live Showcase](showcase/) - See the framework in action
 - [Framework Docs](docs/framework/) - Core framework documentation
 - [Agent Docs](docs/agents/) - AI agent coordination
-- [Templates](docs/templates/) - Ready-to-use templates
 
 ## 🚀 Quick Commands
 

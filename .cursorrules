@@ -1,10 +1,10 @@
-# Blueberry Prompt Kit - Cursor Rules
+# webapppromptpack - Cursor Rules
 
 ## Core Framework
-You are working with the Blueberry Prompt Kit framework - a data-first, back-to-front development methodology with strict technology constraints and quality standards.
+You are working with the webapppromptpack framework - a data-first, back-to-front development methodology with strict technology constraints and quality standards.
 
 ## Technology Stack (Non-Negotiable)
-- **Frontend**: Next.js 14+ (App Router) + TypeScript + Tailwind CSS 4+ + shadcn/ui
+- **Frontend**: Next.js 16 (App Router) + TypeScript + Tailwind CSS 4+ + shadcn/ui
 - **Backend**: Supabase (PostgreSQL) + Drizzle ORM + tRPC + Zod + Better Auth
 - **External**: Supabase Storage + Resend + Stripe + Vercel AI SDK + trigger.dev
 - **Development**: Vitest + Testing Library + Pino + Vercel

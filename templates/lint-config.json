@@ -1,0 +1,39 @@
+{
+  "name": "lint-config",
+  "description": "Essential linting and formatting configuration for webapppromptpack",
+  "files": {
+    ".eslintrc.json": {
+      "content": "{\n  \"extends\": [\n    \"next/core-web-vitals\",\n    \"@typescript-eslint/recommended\",\n    \"@typescript-eslint/recommended-requiring-type-checking\",\n    \"prettier\"\n  ],\n  \"parser\": \"@typescript-eslint/parser\",\n  \"parserOptions\": {\n    \"project\": \"./tsconfig.json\",\n    \"ecmaVersion\": 2022,\n    \"sourceType\": \"module\"\n  },\n  \"plugins\": [\"@typescript-eslint\"],\n  \"rules\": {\n    \"@typescript-eslint/no-unused-vars\": \"error\",\n    \"@typescript-eslint/no-explicit-any\": \"error\",\n    \"@typescript-eslint/explicit-function-return-type\": \"warn\",\n    \"@typescript-eslint/no-non-null-assertion\": \"error\",\n    \"@typescript-eslint/prefer-nullish-coalescing\": \"error\",\n    \"@typescript-eslint/prefer-optional-chain\": \"error\",\n    \"@typescript-eslint/no-unnecessary-condition\": \"error\",\n    \"@typescript-eslint/no-floating-promises\": \"error\",\n    \"@typescript-eslint/await-thenable\": \"error\",\n    \"@typescript-eslint/no-misused-promises\": \"error\",\n    \"@typescript-eslint/require-await\": \"error\",\n    \"@typescript-eslint/no-unsafe-assignment\": \"error\",\n    \"@typescript-eslint/no-unsafe-call\": \"error\",\n    \"@typescript-eslint/no-unsafe-member-access\": \"error\",\n    \"@typescript-eslint/no-unsafe-return\": \"error\",\n    \"@typescript-eslint/prefer-readonly\": \"error\",\n    \"@typescript-eslint/prefer-function-type\": \"error\",\n    \"@typescript-eslint/consistent-type-imports\": \"error\",\n    \"@typescript-eslint/consistent-type-exports\": \"error\",\n    \"prefer-const\": \"error\",\n    \"no-var\": \"error\",\n    \"no-console\": \"warn\",\n    \"no-debugger\": \"error\",\n    \"no-duplicate-imports\": \"error\",\n    \"no-unused-expressions\": \"error\",\n    \"prefer-template\": \"error\",\n    \"object-shorthand\": \"error\",\n    \"prefer-arrow-callback\": \"error\",\n    \"prefer-destructuring\": \"error\",\n    \"no-nested-ternary\": \"error\",\n    \"no-unneeded-ternary\": \"error\",\n    \"react/jsx-boolean-value\": \"error\",\n    \"react/jsx-curly-brace-presence\": \"error\",\n    \"react/jsx-fragments\": \"error\",\n    \"react/jsx-no-useless-fragment\": \"error\",\n    \"react/jsx-prefer-fragment\": \"error\",\n    \"react/no-array-index-key\": \"warn\",\n    \"react/no-unused-prop-types\": \"error\",\n    \"react/self-closing-comp\": \"error\",\n    \"react-hooks/exhaustive-deps\": \"error\",\n    \"react-hooks/rules-of-hooks\": \"error\"\n  }\n}"
+    },
+    ".prettierrc": {
+      "content": "{\n  \"semi\": false,\n  \"singleQuote\": true,\n  \"tabWidth\": 2,\n  \"trailingComma\": \"es5\",\n  \"printWidth\": 80,\n  \"endOfLine\": \"lf\"\n}"
+    },
+    ".prettierignore": {
+      "content": "node_modules\n.next\n.vercel\nout\ndist\nbuild\ncoverage\n*.log\n.env*\n"
+    },
+    "vitest.config.ts": {
+      "content": "import { defineConfig } from 'vitest/config'\nimport react from '@vitejs/plugin-react'\nimport path from 'path'\n\nexport default defineConfig({\n  plugins: [react()],\n  test: {\n    environment: 'jsdom',\n    setupFiles: ['./test/setup.ts'],\n    globals: true,\n  },\n  resolve: {\n    alias: {\n      '@': path.resolve(__dirname, './'),\n    },\n  },\n})"
+    },
+    "test/setup.ts": {
+      "content": "import '@testing-library/jest-dom'\n\n// Mock Next.js router\njest.mock('next/navigation', () => ({\n  useRouter: () => ({\n    push: jest.fn(),\n    replace: jest.fn(),\n    prefetch: jest.fn(),\n  }),\n  useSearchParams: () => ({\n    get: jest.fn(),\n  }),\n  usePathname: () => '/',\n}))"
+    },
+    ".eslintignore": {
+      "content": "node_modules\n.next\n.vercel\nout\ndist\nbuild\ncoverage\n*.log\n.env*\npublic\n"
+    },
+    "lint-staged.config.js": {
+      "content": "module.exports = {\n  '*.{js,jsx,ts,tsx}': [\n    'eslint --fix',\n    'prettier --write',\n  ],\n  '*.{json,md,yml,yaml}': [\n    'prettier --write',\n  ],\n}"
+    },
+    ".husky/pre-commit": {
+      "content": "#!/usr/bin/env sh\n. \"$(dirname -- \"$0\")/_/husky.sh\"\n\nnpx lint-staged"
+    },
+    ".husky/commit-msg": {
+      "content": "#!/usr/bin/env sh\n. \"$(dirname -- \"$0\")/_/husky.sh\"\n\nnpx commitlint --edit $1"
+    },
+    "commitlint.config.js": {
+      "content": "module.exports = {\n  extends: ['@commitlint/config-conventional'],\n  rules: {\n    'type-enum': [\n      2,\n      'always',\n      [\n        'feat',\n        'fix',\n        'docs',\n        'style',\n        'refactor',\n        'perf',\n        'test',\n        'chore',\n        'ci',\n        'build',\n        'revert',\n      ],\n    ],\n    'subject-case': [2, 'never', ['pascal-case', 'upper-case']],\n    'subject-empty': [2, 'never'],\n    'subject-full-stop': [2, 'never', '.'],\n    'type-case': [2, 'always', 'lower-case'],\n    'type-empty': [2, 'never'],\n  },\n}"
+    },
+    ".editorconfig": {
+      "content": "root = true\n\n[*]\ncharset = utf-8\nend_of_line = lf\nindent_style = space\nindent_size = 2\ninsert_final_newline = true\ntrim_trailing_whitespace = true\n\n[*.md]\ntrim_trailing_whitespace = false\n"
+    }
+  }
+}

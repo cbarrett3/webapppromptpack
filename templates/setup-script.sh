@@ -104,25 +104,25 @@ main() {
     echo -e "${BLUE}📚 Installing core framework dependencies...${NC}"
     
     # Core UI and utilities
-    if ! npm install clsx@2.1.1 tailwind-merge@2.5.4 class-variance-authority@0.7.1 lucide-react@0.468.0 tailwindcss-animate@1.0.7 tailwindcss@4.0.0 sonner@1.5.0; then
+    if ! npm install clsx@2.1.1 tailwind-merge@3.3.1 class-variance-authority@0.7.1 lucide-react@0.548.0 tailwindcss-animate@1.0.7 tailwindcss@4.1.16 sonner@2.0.7; then
         error_exit "Failed to install UI dependencies. Please check your internet connection and try again."
     fi
     
     # Database and API stack
     echo -e "${BLUE}🗄️ Installing database and API dependencies...${NC}"
-    if ! npm install @supabase/supabase-js@2.45.4 drizzle-orm@0.36.4 postgres@3.4.4 @trpc/server@11.0.0 @trpc/client@11.0.0 @trpc/react-query@11.0.0 @trpc/next@11.0.0 @tanstack/react-query@5.62.7 @tanstack/react-query-devtools@5.62.7 zod@3.24.1 better-auth@0.8.0 pino@9.5.0; then
+    if ! npm install @supabase/supabase-js@2.76.1 drizzle-orm@0.44.7 postgres@3.4.7 @trpc/server@11.6.0 @trpc/client@11.6.0 @trpc/react-query@11.6.0 @trpc/next@11.6.0 @tanstack/react-query@5.90.5 @tanstack/react-query-devtools@5.90.2 zod@4.1.12 better-auth@1.3.31 pino@10.1.0; then
         error_exit "Failed to install database and API dependencies. Please check your internet connection and try again."
     fi
     
     # External integrations
     echo -e "${BLUE}🔗 Installing external service dependencies...${NC}"
-    if ! npm install resend@3.2.0 stripe@17.3.0 ai@3.4.0 @ai-sdk/openai@0.0.66 @ai-sdk/react@0.0.66 trigger.dev@2.0.0; then
+    if ! npm install resend@6.2.2 stripe@19.1.0 ai@5.0.78 @ai-sdk/openai@2.0.53 @ai-sdk/react@2.0.78 trigger.dev@4.0.4; then
         error_exit "Failed to install external service dependencies. Please check your internet connection and try again."
     fi
     
     # Development dependencies
     echo -e "${BLUE}🛠️ Installing development dependencies...${NC}"
-    if ! npm install -D prettier@3.4.2 eslint-config-prettier@9.1.0 vitest@2.1.8 @testing-library/react@16.1.0 @testing-library/jest-dom@6.6.3 @vitejs/plugin-react@5.1.0 autoprefixer@10.4.20 @typescript-eslint/parser@8.18.1 @typescript-eslint/eslint-plugin@8.18.1 @tailwindcss/postcss@4.1.16 drizzle-kit@0.28.1 @vitest/coverage-v8@2.1.8 postcss@8.5.0 pino-pretty@12.0.0 @types/react@18.3.17 @types/react-dom@18.3.5 tsx@4.19.2 husky@9.1.7 lint-staged@15.2.11 @commitlint/config-conventional@19.7.0 @commitlint/cli@19.7.0; then
+    if ! npm install -D prettier@3.6.2 eslint-config-prettier@10.1.8 vitest@4.0.3 @testing-library/react@16.3.0 @testing-library/jest-dom@6.9.1 @vitejs/plugin-react@5.1.0 autoprefixer@10.4.21 @typescript-eslint/parser@8.46.2 @typescript-eslint/eslint-plugin@8.46.2 @tailwindcss/postcss@4.1.16 drizzle-kit@0.31.5 @vitest/coverage-v8@4.0.3 postcss@8.5.6 pino-pretty@13.1.2 @types/react@19.2.2 @types/react-dom@19.2.2 tsx@4.20.6 husky@9.1.7 lint-staged@16.2.6 @commitlint/config-conventional@20.0.0 @commitlint/cli@20.1.0; then
         error_exit "Failed to install dev dependencies. Please check your internet connection and try again."
     fi
     
@@ -900,7 +900,9 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from './db'
 
 export const auth = betterAuth({
-  database: drizzleAdapter(db),
+  database: drizzleAdapter(db, {
+    provider: 'pg',
+  }),
   emailAndPassword: { enabled: true },
   socialProviders: {
     google: {
@@ -932,16 +934,20 @@ EOF
     cat > lib/logger.ts << 'EOF'
 import pino from 'pino'
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 export const logger = pino({
   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
-  transport: process.env.NODE_ENV === 'development' ? {
-    target: 'pino-pretty',
-    options: {
-      colorize: true,
-      translateTime: 'SYS:standard',
-      ignore: 'pid,hostname'
+  ...(isDevelopment && {
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        colorize: true,
+        translateTime: 'SYS:standard',
+        ignore: 'pid,hostname'
+      }
     }
-  } : undefined
+  })
 })
 EOF
 

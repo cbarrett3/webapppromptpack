@@ -1341,6 +1341,24 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Footer */}
+      <footer className="relative z-10 mt-16 bg-black/95 backdrop-blur-lg transition-opacity duration-500" style={{ borderTop: '4px solid', borderImage: 'linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3) 1' }}>
+        <div className="container mx-auto px-4 py-6">
+          <div className="text-center">
+            <p className="text-white/80 text-sm">
+              Created with 💛 by{' '}
+              <a 
+                href="https://x.com/coookiecrisp97" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
+              >
+                @coookiecrisp97
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

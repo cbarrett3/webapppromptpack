@@ -137,46 +137,19 @@ module.exports = {
 }
 EOF
 
-# Clean ESLint config for high code quality
+# Simplified ESLint config that works with Next.js
 cat > .eslintrc.json << 'EOF'
 {
   "extends": [
     "next/core-web-vitals",
     "@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "ecmaVersion": 2022,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
   "plugins": [
     "@typescript-eslint",
-    "react",
-    "react-hooks",
-    "jsx-a11y",
-    "import",
     "unused-imports"
   ],
-  "settings": {
-    "react": {
-      "version": "detect"
-    },
-    "import/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true
-      }
-    }
-  },
   "rules": {
     // TypeScript essential rules
     "@typescript-eslint/no-unused-vars": "error",

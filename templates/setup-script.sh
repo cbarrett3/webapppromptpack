@@ -715,7 +715,10 @@ import { auth } from './auth'
 export const createTRPCContext = async (opts: { req: any; res?: any }) => {
   try {
     const session = await auth.api.getSession({
-      headers: new Headers(Object.entries(opts.req.headers).map(([key, value]) => [key, Array.isArray(value) ? value.join(', ') : String(value || '')]))
+      headers: new Headers(
+        Object.entries(opts.req.headers)
+          .map(([key, value]) => [key, Array.isArray(value) ? value.join(', ') : String(value || '')] as [string, string])
+      )
     })
     
     return {

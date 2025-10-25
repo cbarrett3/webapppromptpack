@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# webapppromptpack - Modern Web App Framework
-# "Impossible to Mess Up" - Strong opinions, proven patterns, strict constraints
-# Building the future of web development with AI-first architecture
+# webchella - The Full-Stack Lineup You've Been Waiting For
+# Production-ready framework with Next.js, tRPC, Drizzle, and AI agents
+# Building the future of web development with proven patterns
 
 set -euo pipefail
 
@@ -139,9 +139,9 @@ main() {
     PROJECT_NAME="$1"
     validate_project_name "$PROJECT_NAME"
     
-    echo -e "${PURPLE}🚀 webapppromptpack - Modern Web App Framework${NC}"
-    echo -e "${PURPLE}===============================================${NC}"
-    echo -e "${PURPLE}💡 'Impossible to Mess Up' - Strong opinions, proven patterns${NC}"
+    echo -e "${PURPLE}🎪 webchella - The Full-Stack Lineup You've Been Waiting For${NC}"
+    echo -e "${PURPLE}================================================================${NC}"
+    echo -e "${PURPLE}💡 Production-ready framework with proven patterns${NC}"
     echo -e "${PURPLE}🔧 Building the future of web development${NC}"
     
     check_requirements

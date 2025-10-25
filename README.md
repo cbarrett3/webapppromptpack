@@ -67,10 +67,8 @@ my-app/
 
 ## 🤖 AI Agent System
 
-- **Master Agent** - Coordinates development process
-- **Development Agents** - Phase-specific guidance (Data, Database, API, UI, Polish, Testing)
-- **PM Agents** - Product management and planning
-- **Design Agent** - Clean, professional design
+- **PM Agent** - Writes tickets, manages roadmaps, has design mindset
+- **Full-Stack Agent** - Builds complete features from database to UI
 
 ## 🎨 Design System
 

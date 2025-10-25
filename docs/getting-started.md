@@ -63,3 +63,43 @@ cd my-app && npm run dev
 - **Professional Polish** - Interfaces that rival top SaaS products
 
 **Simple, effective coordination between two focused agents.**
+
+## Troubleshooting
+
+### **Setup Issues**
+- **Node.js version**: Ensure Node.js 18+ is installed
+- **Network issues**: Check internet connection for dependency downloads
+- **Permission errors**: Run with proper permissions on your system
+
+### **Development Issues**
+- **TypeScript errors**: Run `npm run type-check` to identify issues
+- **Lint errors**: Run `npm run lint:fix` to auto-fix issues
+- **Build failures**: Check for missing dependencies or configuration issues
+
+### **Agent Coordination**
+- **Unclear tickets**: Ask PM Agent to clarify requirements
+- **Technical blockers**: Ask Full-Stack Agent to identify dependencies
+- **Quality issues**: Use quality gates to ensure standards are met
+
+## Deployment
+
+### **Vercel Deployment**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy to Vercel
+vercel --prod
+```
+
+### **Environment Variables**
+- Set up Supabase project and add credentials
+- Configure authentication providers
+- Add external API keys as needed
+
+### **Production Checklist**
+- [ ] All tests passing
+- [ ] Build successful
+- [ ] Environment variables configured
+- [ ] Database migrations applied
+- [ ] Performance optimized

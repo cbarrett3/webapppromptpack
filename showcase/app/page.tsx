@@ -8,8 +8,9 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* ASCII Art Header */}
-          <div className="text-center mb-12">
-            <pre className="text-xs md:text-sm font-mono text-foreground/80 leading-tight mb-6">
+          <div className="text-center mb-12 relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-pink-500/10 rounded-lg blur-xl"></div>
+            <pre className="text-xs md:text-sm font-mono text-foreground/90 leading-tight mb-6 relative z-10 drop-shadow-lg">
 {`              ___.                                                            __                       __ 
 __  _  __ ____\\_ |__ _____  ______ ______ _____________  ____   _____ _______/  |____________    ____ |  | __
 \\ \\/ \\/ // __ \\| __ \\\\__  \\ \\____ \\\\____ \\\\____ \\_  __ \\/  _ \\ /     \\\\____ \\   __\\____ \\__  \\ _/ ___\\|  |/ /
@@ -25,68 +26,81 @@ __  _  __ ____\\_ |__ _____  ______ ______ _____________  ____   _____ _______/ 
             </p>
           </div>
           
-          <div className="space-y-8">
-            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-6 rounded-lg border border-border/50 shadow-lg">
-              <h2 className="text-2xl font-semibold mb-4">Framework Overview</h2>
-              <p className="text-secondary-foreground mb-4">
-                The webapppromptpack is a comprehensive framework for building web applications 
-                with AI agents. It provides strict guardrails, proven patterns, and a systematic 
-                approach to development that makes it <strong>impossible to mess up</strong>.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-background p-4 rounded">
-                  <h3 className="font-semibold mb-2">Data-First Development</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Start with database schema, build APIs, then create UI components.
-                  </p>
-                </div>
-                <div className="bg-background p-4 rounded">
-                  <h3 className="font-semibold mb-2">Type Safety Everywhere</h3>
-                  <p className="text-sm text-muted-foreground">
-                    End-to-end TypeScript with tRPC, Zod validation, and Drizzle ORM.
-                  </p>
+          <div className="space-y-12">
+            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-8 rounded-xl border border-border/50 shadow-2xl relative overflow-hidden">
+              {/* Spooky glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-cyan-500/10 animate-pulse"></div>
+              <div className="relative z-10">
+                <h2 className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-300">
+                  Framework Overview
+                </h2>
+                <p className="text-secondary-foreground mb-6 text-lg leading-relaxed">
+                  The webapppromptpack is a comprehensive framework for building web applications 
+                  with AI agents. It provides strict guardrails, proven patterns, and a systematic 
+                  approach to development that makes it <strong className="text-cyan-300">impossible to mess up</strong>.
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10">
+                    <h3 className="font-bold mb-3 text-cyan-200">Data-First Development</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Start with database schema, build APIs, then create UI components.
+                    </p>
+                  </div>
+                  <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10">
+                    <h3 className="font-bold mb-3 text-cyan-200">Type Safety Everywhere</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      End-to-end TypeScript with tRPC, Zod validation, and Drizzle ORM.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
 
-            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-6 rounded-lg border border-border/50 shadow-lg">
-              <h2 className="text-2xl font-semibold mb-4">Development Methodology</h2>
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="bg-background p-4 rounded">
-                  <h3 className="font-semibold mb-2">Phase 1: Data Planning</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Plan features, model data, design APIs, map user flows.
-                  </p>
-                </div>
-                <div className="bg-background p-4 rounded">
-                  <h3 className="font-semibold mb-2">Phase 2: Database</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Create Drizzle schemas, run migrations, set up relationships.
-                  </p>
-                </div>
-                <div className="bg-background p-4 rounded">
-                  <h3 className="font-semibold mb-2">Phase 3: API</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Build tRPC procedures, add validation, implement auth.
-                  </p>
-                </div>
-                <div className="bg-background p-4 rounded">
-                  <h3 className="font-semibold mb-2">Phase 4: UI</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Create Next.js pages, build components, apply styling.
-                  </p>
-                </div>
-                <div className="bg-background p-4 rounded">
-                  <h3 className="font-semibold mb-2">Phase 5: Polish</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Add loading states, error handling, optimize performance.
-                  </p>
-                </div>
-                <div className="bg-background p-4 rounded">
-                  <h3 className="font-semibold mb-2">Phase 6: Testing</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Write tests, verify functionality, ensure quality.
-                  </p>
+            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-8 rounded-xl border border-border/50 shadow-2xl relative overflow-hidden">
+              {/* Spooky animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-cyan-500/5 animate-pulse"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 animate-pulse"></div>
+              <div className="relative z-10">
+                <h2 className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-pink-300">
+                  Development Methodology
+                </h2>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 group">
+                    <h3 className="font-bold mb-3 text-purple-200 group-hover:text-purple-100 transition-colors">Phase 1: Data Planning</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Plan features, model data, design APIs, map user flows.
+                    </p>
+                  </div>
+                  <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-pink-500/20 hover:border-pink-400/40 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10 group">
+                    <h3 className="font-bold mb-3 text-pink-200 group-hover:text-pink-100 transition-colors">Phase 2: Database</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Create Drizzle schemas, run migrations, set up relationships.
+                    </p>
+                  </div>
+                  <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10 group">
+                    <h3 className="font-bold mb-3 text-cyan-200 group-hover:text-cyan-100 transition-colors">Phase 3: API</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Build tRPC procedures, add validation, implement auth.
+                    </p>
+                  </div>
+                  <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-green-500/20 hover:border-green-400/40 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10 group">
+                    <h3 className="font-bold mb-3 text-green-200 group-hover:text-green-100 transition-colors">Phase 4: UI</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Create Next.js pages, build components, apply styling.
+                    </p>
+                  </div>
+                  <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-yellow-500/20 hover:border-yellow-400/40 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/10 group">
+                    <h3 className="font-bold mb-3 text-yellow-200 group-hover:text-yellow-100 transition-colors">Phase 5: Polish</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Add loading states, error handling, optimize performance.
+                    </p>
+                  </div>
+                  <div className="bg-background/80 backdrop-blur-sm p-6 rounded-lg border border-red-500/20 hover:border-red-400/40 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/10 group">
+                    <h3 className="font-bold mb-3 text-red-200 group-hover:text-red-100 transition-colors">Phase 6: Testing</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Write tests, verify functionality, ensure quality.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -127,9 +141,9 @@ __  _  __ ____\\_ |__ _____  ______ ______ _____________  ____   _____ _______/ 
                       </code>
                       <button 
                         onClick={() => navigator.clipboard.writeText('git clone https://github.com/cbarrett3/webapppromptpack.git')}
-                        className="px-3 py-1 bg-primary text-primary-foreground rounded text-sm hover:bg-primary/90 transition-colors"
+                        className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg text-sm font-medium hover:from-cyan-500 hover:to-blue-500 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 hover:scale-105 border border-cyan-400/30"
                       >
-                        Copy
+                        📋 Copy
                       </button>
                     </div>
                     <p className="text-xs text-muted-foreground">
@@ -145,9 +159,9 @@ __  _  __ ____\\_ |__ _____  ______ ______ _____________  ____   _____ _______/ 
                     </code>
                     <button 
                       onClick={() => navigator.clipboard.writeText('npm install @supabase/supabase-js drizzle-orm @trpc/server @trpc/client')}
-                      className="px-3 py-1 bg-primary text-primary-foreground rounded text-sm hover:bg-primary/90 transition-colors"
+                      className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg text-sm font-medium hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 hover:scale-105 border border-purple-400/30"
                     >
-                      Copy
+                      📋 Copy
                     </button>
                   </div>
                 </div>
@@ -158,15 +172,15 @@ __  _  __ ____\\_ |__ _____  ______ ______ _____________  ____   _____ _______/ 
                       <a 
                         href="/api/download-framework"
                         download="webapppromptpack-complete.txt"
-                        className="px-4 py-2 bg-primary text-primary-foreground rounded text-sm hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+                        className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg text-sm font-medium hover:from-green-500 hover:to-emerald-500 transition-all duration-300 shadow-lg hover:shadow-green-500/25 hover:scale-105 border border-green-400/30 inline-flex items-center gap-2"
                       >
                         📦 Download Complete Framework
                       </a>
                       <button 
                         onClick={() => navigator.clipboard.writeText('git clone https://github.com/cbarrett3/webapppromptpack.git')}
-                        className="px-3 py-1 bg-secondary text-secondary-foreground rounded text-sm hover:bg-secondary/90 transition-colors"
+                        className="px-4 py-2 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg text-sm font-medium hover:from-orange-500 hover:to-red-500 transition-all duration-300 shadow-lg hover:shadow-orange-500/25 hover:scale-105 border border-orange-400/30"
                       >
-                        Copy Git Clone
+                        🔗 Copy Git Clone
                       </button>
                     </div>
                     <p className="text-xs text-muted-foreground">

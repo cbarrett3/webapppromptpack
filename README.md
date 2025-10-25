@@ -1,21 +1,21 @@
-# webapppromptpack
+# webchella
 
 ```
-              ___.                                                            __                       __ 
-__  _  __ ____\_ |__ _____  ______ ______ _____________  ____   _____ _______/  |____________    ____ |  | __
-\ \/ \/ // __ \| __ \\__  \ \____ \\____ \\____ \_  __ \/  _ \ /     \\____ \   __\____ \__  \ _/ ___\|  |/ /
- \     /\  ___/| \_\ \/ __ \|  |_> >  |_> >  |_> >  | \(  <_> )  Y Y  \  |_> >  | |  |_> > __ \\  \___|    < 
-  \/\_/  \___  >___  (____  /   __/|   __/|   __/|__|   \____/|__|_|  /   __/|__| |   __(____  /\___  >__|_ \
-             \/    \/     \/|__|   |__|   |__|                      \/|__|        |__|       \/     \/     \/
+              ___.          .__           .__  .__          
+__  _  __ ____\_ |__   ____ |  |__   ____ |  | |  | _____   
+\ \/ \/ // __ \| __ \_/ ___\|  |  \_/ __ \|  | |  | \__  \  
+ \     /\  ___/| \_\ \  \___|   Y  \  ___/|  |_|  |__/ __ \_
+  \/\_/  \___  >___  /\___  >___|  /\___  >____/____(____  /
+             \/    \/     \/     \/     \/               \/ 
 ```
 
-**Impossible to mess up** - A comprehensive framework for building web applications with AI agents.
+**Some of the best coming together to create something beautiful** - A comprehensive framework for building web applications with AI agents.
 
 ## 🚀 Start Building in 2 Minutes
 
 ```bash
 # One command setup with everything configured
-curl -sSL https://raw.githubusercontent.com/cbarrett3/webapppromptpack/main/templates/setup-script.sh | bash -s my-app
+curl -sSL https://raw.githubusercontent.com/cbarrett3/webchella/main/templates/setup-script.sh | bash -s my-app
 
 cd my-app && npm run dev
 ```
@@ -61,7 +61,7 @@ cd my-app && npm run dev
 
 ## 🎯 Core Philosophy
 
-**"Impossible to Mess Up"** - Strict guardrails, proven patterns, systematic methodology.
+**"Some of the best coming together to create something beautiful"** - Strict guardrails, proven patterns, systematic methodology.
 
 ### Core Features
 - **Data-first development** - Database schema drives everything

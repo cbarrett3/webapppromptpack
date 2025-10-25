@@ -1139,11 +1139,9 @@ export default function Home() {
               }}></div>
             </div>
             <CardHeader className="text-center">
-              <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-4">
-                <span className="text-white font-semibold text-sm tracking-wide">
-                  Step {currentStep + 1} of {onboardingSteps.length}
-                </span>
-              </div>
+              <p className="text-white/60 font-medium text-xs md:text-sm tracking-widest uppercase mb-6">
+                Step {currentStep + 1} of {onboardingSteps.length}
+              </p>
               <CardTitle className="text-white drop-shadow-lg text-2xl md:text-3xl lg:text-4xl font-bold px-2 mb-3">
                 {onboardingSteps[currentStep].title}
               </CardTitle>

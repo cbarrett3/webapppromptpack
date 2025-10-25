@@ -14,9 +14,10 @@ export const metadata: Metadata = {
     description: "Some of the best coming together to create something beautiful - A full-stack development framework with AI agents",
     type: "website",
     siteName: "webchella",
+    url: "https://webchella.dev",
     images: [
       {
-        url: "/webchella.png",
+        url: "https://webchella.dev/webchella.png",
         width: 1200,
         height: 630,
         alt: "webchella - Full-stack development framework",
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     title: "webchella",
     description: "Some of the best coming together to create something beautiful - A full-stack development framework with AI agents",
     creator: "@coookiecrisp97",
-    images: ["/webchella.png"],
+    images: ["https://webchella.dev/webchella.png"],
   },
 };
 

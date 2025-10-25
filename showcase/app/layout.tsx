@@ -3,9 +3,9 @@ import React from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "webapppromptpack",
+  title: "webchella",
   description:
-    "A live demonstration of the webapppromptpack framework - impossible to mess up",
+    "Some of the best coming together to create something beautiful - A full-stack development framework with AI agents",
 };
 
 export default function RootLayout({

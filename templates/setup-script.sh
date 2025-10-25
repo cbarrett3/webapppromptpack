@@ -76,7 +76,7 @@ main() {
     
     # Create Next.js project
     echo -e "${BLUE}Creating Next.js 16 application...${NC}"
-    if ! npx create-next-app@latest "$PROJECT_NAME" --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm; then
+    if ! npx create-next-app@latest "$PROJECT_NAME" --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes; then
         error_exit "Failed to create Next.js project. Please check your internet connection and try again."
     fi
     
@@ -85,7 +85,7 @@ main() {
         error_exit "Project directory was not created. Please check the project name and try again."
     fi
     
-    cd "$PROJECT_NAME"
+    cd "$PROJECT_NAME" || error_exit "Failed to enter project directory"
     
     # Install cutting-edge dependencies
     echo -e "${BLUE}Installing framework dependencies...${NC}"

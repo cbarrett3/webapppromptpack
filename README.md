@@ -1,19 +1,19 @@
-# Blueberry Prompt Kit
+# webapppromptpack
 
 ```
-     🫐🫐
-   🫐🫐🫐🫐
-  🫐🫐🫐🫐🫐
-   🫐🫐🫐🫐
-     🫐🫐
- 
+              ___.                                                            __                       __ 
+__  _  __ ____\_ |__ _____  ______ ______ _____________  ____   _____ _______/  |____________    ____ |  | __
+\ \/ \/ // __ \| __ \\__  \ \____ \\____ \\____ \_  __ \/  _ \ /     \\____ \   __\____ \__  \ _/ ___\|  |/ /
+ \     /\  ___/| \_\ \/ __ \|  |_> >  |_> >  |_> >  | \(  <_> )  Y Y  \  |_> >  | |  |_> > __ \\  \___|    < 
+  \/\_/  \___  >___  (____  /   __/|   __/|   __/|__|   \____/|__|_|  /   __/|__| |   __(____  /\___  >__|_ \
+             \/    \/     \/|__|   |__|   |__|                      \/|__|        |__|       \/     \/     \/
 ```
 
 A comprehensive framework for building web applications with AI agents. Provides strict guardrails, proven patterns, and a systematic approach to development.
 
 ## Core Philosophy
 
-**"Impossible to Mess Up"** - The Blueberry Prompt Kit ensures consistent, high-quality results through:
+**"Impossible to Mess Up"** - The webapppromptpack ensures consistent, high-quality results through:
 
 - **Strict Guardrails** - Prevents over-engineering and keeps AI focused
 - **Proven Patterns** - Battle-tested approaches that scale
@@ -26,19 +26,19 @@ A comprehensive framework for building web applications with AI agents. Provides
 ### 1. Get the Framework
 ```bash
 # Clone the repository
-git clone https://github.com/cbarrett3/blueberry-prompt-kit.git
+git clone https://github.com/cbarrett3/webapppromptpack.git
 
 # Or download the complete framework
-curl -o blueberry-prompt-kit.zip https://github.com/cbarrett3/blueberry-prompt-kit/archive/refs/heads/main.zip
+curl -o webapppromptpack.zip https://github.com/cbarrett3/webapppromptpack/archive/refs/heads/main.zip
 ```
 
 ### 2. Copy Framework Files
 ```bash
 # Copy Cursor rules to your project
-cp blueberry-prompt-kit/.cursorrules ./
+cp webapppromptpack/.cursorrules ./
 
 # Copy detailed Cursor configuration
-cp -r blueberry-prompt-kit/.cursor ./
+cp -r webapppromptpack/.cursor ./
 ```
 
 ### 3. Install Dependencies
@@ -128,7 +128,7 @@ Coordinates the entire development process and ensures quality standards.
 ## Project Structure
 
 ```
-blueberry-prompt-kit/
+webapppromptpack/
 ├── .cursorrules                 # Cursor IDE rules
 ├── .cursor/                     # Detailed Cursor configuration
 │   ├── rules/                  # Framework rules
@@ -227,4 +227,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-**The Blueberry Prompt Kit ensures consistent, high-quality results that are impossible to mess up.**
+**The webapppromptpack ensures consistent, high-quality results that are impossible to mess up.**

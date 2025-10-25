@@ -688,7 +688,7 @@ EOF
     update_script "test" "vitest"
     update_script "test:ui" "vitest --ui"
     update_script "test:coverage" "vitest --coverage"
-    update_script "quality" "npm run lint && npm run format:check && npm run type-check"
+    update_script "quality" "npm run format && npm run lint && npm run type-check"
     update_script "dev:clean" "rm -rf .next && npm run dev"
     
     # Database scripts

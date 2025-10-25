@@ -1110,12 +1110,12 @@ export default function Home() {
 
                   {/* Command Display for Step 1 */}
                   {currentStep === 0 && onboardingSteps[currentStep].command && (
-                    <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 md:p-4 border border-white/30 shadow-lg">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-white font-medium text-xs md:text-sm font-mono tracking-wider">TERMINAL</span>
+                    <div className="bg-black/60 backdrop-blur-sm rounded-lg p-2 md:p-3 border border-white/30 shadow-lg">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-white font-medium text-xs font-mono tracking-wider">TERMINAL</span>
                       </div>
                       <div 
-                        className="font-mono text-xs md:text-sm bg-black/60 rounded-lg p-3 md:p-4 cursor-pointer hover:bg-black/80 transition-all duration-200 hover:border-green-400/50 border border-white/20 overflow-x-auto shadow-inner"
+                        className="font-mono text-xs bg-black/60 rounded-lg p-2 md:p-3 cursor-pointer hover:bg-black/80 transition-all duration-200 hover:border-green-400/50 border border-white/20 overflow-x-auto shadow-inner"
                         onClick={async () => {
                           await navigator.clipboard.writeText(onboardingSteps[currentStep].command || '');
                           setCopied(true);
@@ -1126,7 +1126,7 @@ export default function Home() {
                         <span className="text-green-400 font-semibold">$</span>{' '}
                         <span className="text-white font-medium whitespace-nowrap">{onboardingSteps[currentStep].command}</span>
                       </div>
-                      <p className={`font-medium text-xs mt-2 flex items-center gap-1.5 transition-colors duration-300 ${copied ? 'text-green-400' : 'text-green-400/70'}`}>
+                      <p className={`font-medium text-xs mt-1 flex items-center gap-1.5 transition-colors duration-300 ${copied ? 'text-green-400' : 'text-green-400/70'}`}>
                         {copied ? (
                           <>
                             <Check className="w-4 h-4 animate-bounce" />
@@ -1143,7 +1143,7 @@ export default function Home() {
                   )}
 
                   {/* Action Button */}
-                  <div className="flex justify-center">
+                  <div className="flex justify-center mb-6">
                     {currentStep === onboardingSteps.length - 1 ? (
                       <a
                         href="https://twitter.com/intent/tweet?text=I'm%20shipping%20with%20webchella!%20Check%20it%20out%20at%20webchella.dev%20🚀"

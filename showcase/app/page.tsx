@@ -1016,7 +1016,19 @@ export default function Home() {
       <div id="onboarding-section" className="relative z-10 min-h-screen bg-gradient-to-b from-transparent via-white/5 to-white/10 py-8 md:py-12 px-4 flex flex-col items-center justify-center">
         {/* Introduction Text */}
         <div className="text-center max-w-3xl px-4 mb-8 md:mb-12">
-          <div className="bg-black/30 backdrop-blur-md rounded-xl px-6 py-4 border border-white/20">
+          <div className="backdrop-blur-md rounded-3xl px-6 py-4 relative" style={{
+            background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.9) 100%)',
+            opacity: 0.95
+          }}>
+            {/* Rainbow gradient border using pseudo-element */}
+            <div className="absolute inset-0 rounded-3xl p-1" style={{
+              background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff)',
+              zIndex: -1
+            }}>
+              <div className="w-full h-full rounded-3xl" style={{
+                background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.9) 100%)'
+              }}></div>
+            </div>
             <p className="text-white text-sm md:text-base lg:text-lg drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] leading-relaxed">
               Your webchella kit includes a <span className="font-semibold text-white">Fullstack Agent</span> and <span className="font-semibold text-white">PM Agent</span> to guide your development, along with <span className="font-semibold text-white">Code Quality Cursor Rules</span> for consistent success.
             </p>
@@ -1024,7 +1036,19 @@ export default function Home() {
         </div>
         
         <div className="w-full max-w-4xl mx-auto flex items-center justify-center flex-1">
-          <Card className="bg-black/40 backdrop-blur-2xl border-white/30 shadow-2xl ring-1 ring-white/10 w-full h-full min-h-[600px] md:min-h-[650px] flex flex-col">
+          <Card className="backdrop-blur-2xl shadow-2xl w-full h-full min-h-[600px] md:min-h-[650px] flex flex-col rounded-3xl relative" style={{
+            background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(15,15,15,0.9) 100%)',
+            opacity: 0.95
+          }}>
+            {/* Rainbow gradient border using pseudo-element */}
+            <div className="absolute inset-0 rounded-3xl p-1" style={{
+              background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff)',
+              zIndex: -1
+            }}>
+              <div className="w-full h-full rounded-3xl" style={{
+                background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(15,15,15,0.9) 100%)'
+              }}></div>
+            </div>
             <CardHeader className="text-center">
               <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-4">
                 <span className="text-white font-semibold text-sm tracking-wide">
@@ -1286,3 +1310,4 @@ function Sky() {
     </>
   );
 }
+

@@ -212,7 +212,7 @@ main() {
     
     # Development dependencies
     echo -e "${BLUE}🛠️ Installing development dependencies...${NC}"
-    if ! install_with_retry "-D prettier@3.6.2 eslint-config-prettier@10.1.8 vitest@4.0.3 @testing-library/react@16.3.0 @testing-library/jest-dom@6.9.1 @vitejs/plugin-react@5.1.0 autoprefixer@10.4.21 @typescript-eslint/parser@8.46.2 @typescript-eslint/eslint-plugin@8.46.2 @tailwindcss/postcss@4.1.16 drizzle-kit@0.31.5 @vitest/coverage-v8@4.0.3 postcss@8.5.6 pino-pretty@13.1.2 @types/react@19.2.2 @types/react-dom@19.2.2 tsx@4.20.6 husky@9.1.7 lint-staged@16.2.6 @commitlint/config-conventional@20.0.0 @commitlint/cli@20.1.0 jsdom@27.0.1"; then
+    if ! install_with_retry "-D prettier@3.6.2 eslint-config-prettier@10.1.8 vitest@4.0.3 @testing-library/react@16.3.0 @testing-library/jest-dom@6.9.1 @vitejs/plugin-react@5.1.0 autoprefixer@10.4.21 @typescript-eslint/parser@8.46.2 @typescript-eslint/eslint-plugin@8.46.2 @tailwindcss/postcss@4.1.16 drizzle-kit@0.31.5 @vitest/coverage-v8@4.0.3 postcss@8.5.6 @types/react@19.2.2 @types/react-dom@19.2.2 tsx@4.20.6 husky@9.1.7 lint-staged@16.2.6 @commitlint/config-conventional@20.0.0 @commitlint/cli@20.1.0 jsdom@27.0.1"; then
         error_exit "Failed to install dev dependencies after 3 attempts. Please check your internet connection and try again."
     fi
     
@@ -1131,16 +1131,20 @@ EOF
 import pino from 'pino'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
+const isServer = typeof window === 'undefined'
 
+// Edge-compatible logger configuration without worker threads
 export const logger = pino({
   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
-  ...(isDevelopment && {
+  browser: {
+    asObject: true
+  },
+  ...(isDevelopment && isServer && {
+    // Use simple browser transport instead of pino-pretty to avoid worker thread issues
     transport: {
-      target: 'pino-pretty',
+      target: 'pino/file',
       options: {
-        colorize: true,
-        translateTime: 'SYS:standard',
-        ignore: 'pid,hostname'
+        destination: 1 // stdout
       }
     }
   })

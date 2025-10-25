@@ -4,11 +4,81 @@ import * as THREE from "three";
 import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Clouds, Cloud, CameraControls, Sky as SkyImpl } from "@react-three/drei";
-import { Coffee, Play, Pause } from "lucide-react";
+import { Coffee, Play, Pause, Copy, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   const [activeLabels, setActiveLabels] = useState<Set<string>>(new Set());
   const [buttonSize, setButtonSize] = useState('120px');
+  const [currentStep, setCurrentStep] = useState(0);
+  const [copied, setCopied] = useState(false);
+
+  const onboardingSteps: Array<{
+    title: string;
+    description: string;
+    action: string;
+    link: string;
+    cta: string;
+    command?: string;
+    logo?: string;
+  }> = [
+    {
+      title: "Initialize Project",
+      description: "Bootstrap your entire production-ready stack in one command. TypeScript, tRPC, Drizzle, and everything you need.",
+      action: "Copy the command below",
+      link: "https://github.com/cbarrett3/webchella",
+      cta: "View Repository",
+      command: "curl -sSL https://raw.githubusercontent.com/cbarrett3/webchella/main/templates/setup-script.sh | bash -s my-app"
+    },
+    {
+      title: "Connect Your Database",
+      description: "Create your Supabase project and grab your credentials from the dashboard.",
+      action: "Create your Supabase project",
+      link: "https://supabase.com/dashboard",
+      cta: "Go to Supabase",
+      logo: "/supabase.png"
+    },
+    {
+      title: "Define Your Schema",
+      description: "Model your data with Drizzle. Write migrations and push to Supabase.",
+      action: "Review Drizzle setup",
+      link: "https://orm.drizzle.team/docs/tutorials/drizzle-with-postgres",
+      cta: "View Drizzle Docs",
+      logo: "/drizzle.png"
+    },
+    {
+      title: "Secure Your App",
+      description: "Configure Better Auth and add your environment variables.",
+      action: "Configure authentication",
+      link: "https://www.better-auth.com/docs",
+      cta: "View Better Auth Docs",
+      logo: "/betterauth.svg"
+    },
+    {
+      title: "Enable Payments (Optional)",
+      description: "Add Stripe for subscriptions and payments. Skip if not needed.",
+      action: "Create Stripe account",
+      link: "https://dashboard.stripe.com/register",
+      cta: "Go to Stripe",
+      logo: "/stripe.png"
+    },
+    {
+      title: "Enable Email (Optional)",
+      description: "Add Resend for transactional emails. Skip if not needed.",
+      action: "Create Resend account",
+      link: "https://resend.com/signup",
+      cta: "Go to Resend",
+      logo: "/resend.png"
+    },
+    {
+      title: "Ship",
+      description: "Everything's configured. Start building with your AI agent.",
+      action: "Start your development server",
+      link: "https://github.com/cbarrett3/webchella",
+      cta: "View Framework Docs"
+    }
+  ];
 
   const toggleLabel = (labelName: string) => {
     setActiveLabels(prev => {
@@ -46,7 +116,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white relative overflow-hidden">
+    <main className="bg-white relative">
       {/* Three.js Canvas - Full Screen */}
       <div className="absolute inset-0 w-full h-full">
         <Canvas 
@@ -62,10 +132,44 @@ export default function Home() {
         </Canvas>
       </div>
 
+        {/* Buy Me a Coffee Link - Top Left */}
+        <a
+          href="https://venmo.com/cbarrett-97"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed top-6 left-6 z-50 group"
+          aria-label="Buy me a coffee"
+        >
+          <div className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/30 hover:border-white/50 rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-xl relative w-12 h-12 flex items-center justify-center">
+            <span className="text-2xl">☕</span>
+          </div>
+        </a>
+
+        {/* GitHub Link - Top Right */}
+        <a
+          href="https://github.com/cbarrett3/webchella"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed top-6 right-6 z-50 group"
+          aria-label="View on GitHub"
+        >
+          <div className="bg-white/10 hover:bg-white/20 backdrop-blur-lg border border-white/30 hover:border-white/50 rounded-full p-3 transition-all duration-300 hover:scale-110 hover:shadow-xl relative">
+            <svg
+              className="w-6 h-6 text-white group-hover:text-gray-200 transition-colors duration-300"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+            </svg>
+
+          </div>
+        </a>
+
         {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen py-4">
         {/* Rope for the disco ball */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-10">
           <svg 
             className="w-full h-full" 
             viewBox="0 0 100 100" 
@@ -110,10 +214,10 @@ export default function Home() {
         </div>
 
         {/* Big Play/Stop Button */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-8 mt-4">
         <button 
           id="big-play-button"
-          className="group relative bg-white/5 hover:bg-white/8 backdrop-blur-sm rounded-full transition-all duration-500 hover:scale-105 hover:shadow-2xl border-2 overflow-hidden cursor-pointer z-20"
+          className="group relative bg-white/5 hover:bg-white/8 backdrop-blur-sm rounded-full transition-all duration-500 hover:scale-105 hover:shadow-2xl border-2 overflow-hidden cursor-pointer z-30"
           style={{
             width: buttonSize,
             height: buttonSize,
@@ -270,28 +374,28 @@ export default function Home() {
             }}
           />
         </button>
-          
-          {/* Hidden audio element */}
-          <audio 
-            id="coding-audio" 
-            loop 
-            preload="auto"
-            onLoadedData={() => {
-              // Try to autoplay when audio is ready
-              const audio = document.getElementById('coding-audio') as HTMLAudioElement;
-              audio.play().catch(() => {
-                console.log('Autoplay blocked - user interaction required');
-              });
-            }}
-          >
-            <source src="/audio/no-joy.mp3" type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
-              </div>
+      </div>
+      
+      {/* Hidden audio element */}
+      <audio 
+        id="coding-audio" 
+        loop 
+        preload="auto"
+        onLoadedData={() => {
+          // Try to autoplay when audio is ready
+          const audio = document.getElementById('coding-audio') as HTMLAudioElement;
+          audio.play().catch(() => {
+            console.log('Autoplay blocked - user interaction required');
+          });
+        }}
+      >
+        <source src="/audio/no-joy.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
 
         {/* Webchella Title */}
-            <div className="relative z-10 mb-8">
-              <h2 className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[12rem] font-bold text-white text-center cursor-pointer transition-all duration-300 group px-4" style={{ 
+            <div className="relative z-10 mb-6">
+              <h2 className="text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-bold text-white text-center cursor-pointer transition-all duration-300 group px-4" style={{ 
                 fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', 
                 fontWeight: '900', 
                 letterSpacing: '-0.02em', 
@@ -366,7 +470,7 @@ export default function Home() {
             </div>
 
             {/* Tech Stack Logos */}
-            <div className="relative z-10">
+            <div className="relative z-10 mt-2">
               <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 md:gap-4 px-2 sm:px-4">
           <div 
             className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
@@ -747,29 +851,341 @@ export default function Home() {
             <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>Tailwind</span>
                   </div>
                 </div>
+
+                {/* Second Row - Additional Tools */}
+                <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-4">
+                  <div 
+                    className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
+                    style={{ 
+                      padding: '8px 12px', 
+                      boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      backgroundColor: activeLabels.has('Vercel AI SDK') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(59, 130, 246, 0.6)',
+                      borderLeft: '3px solid rgba(59, 130, 246, 0.6)',
+                      borderRight: '3px solid rgba(59, 130, 246, 0.6)',
+                      borderTop: '6px solid rgba(255, 255, 255, 0.8)',
+                      borderBottom: '6px solid rgba(255, 255, 255, 0.8)'
+                    }}
+                    onClick={() => toggleLabel('Vercel AI SDK')}
+                    onMouseDown={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(0.95)';
+                        e.currentTarget.style.transition = 'transform 0.1s ease-out';
+                      }
+                    }}
+                    onMouseUp={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                          if (e.currentTarget) {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                          }
+                        }, 50);
+                      }
+                    }}
+                  >
+                    <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>Vercel AI SDK</span>
+                  </div>
+                  <div 
+                    className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
+                    style={{ 
+                      padding: '8px 12px', 
+                      boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      backgroundColor: activeLabels.has('Stripe') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(100, 37, 255, 0.6)',
+                      borderLeft: '3px solid rgba(100, 37, 255, 0.6)',
+                      borderRight: '3px solid rgba(100, 37, 255, 0.6)',
+                      borderTop: '6px solid rgba(255, 255, 255, 0.8)',
+                      borderBottom: '6px solid rgba(255, 255, 255, 0.8)'
+                    }}
+                    onClick={() => toggleLabel('Stripe')}
+                    onMouseDown={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(0.95)';
+                        e.currentTarget.style.transition = 'transform 0.1s ease-out';
+                      }
+                    }}
+                    onMouseUp={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                          if (e.currentTarget) {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                          }
+                        }, 50);
+                      }
+                    }}
+                  >
+                    <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>Stripe</span>
+                  </div>
+                  <div 
+                    className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
+                    style={{ 
+                      padding: '8px 12px', 
+                      boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      backgroundColor: activeLabels.has('Resend') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 99, 71, 0.6)',
+                      borderLeft: '3px solid rgba(255, 99, 71, 0.6)',
+                      borderRight: '3px solid rgba(255, 99, 71, 0.6)',
+                      borderTop: '6px solid rgba(255, 255, 255, 0.8)',
+                      borderBottom: '6px solid rgba(255, 255, 255, 0.8)'
+                    }}
+                    onClick={() => toggleLabel('Resend')}
+                    onMouseDown={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(0.95)';
+                        e.currentTarget.style.transition = 'transform 0.1s ease-out';
+                      }
+                    }}
+                    onMouseUp={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                          if (e.currentTarget) {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                          }
+                        }, 50);
+                      }
+                    }}
+                  >
+                    <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>Resend</span>
+                  </div>
+                  <div 
+                    className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
+                    style={{ 
+                      padding: '8px 12px', 
+                      boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      backgroundColor: activeLabels.has('trigger.dev') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(139, 69, 19, 0.6)',
+                      borderLeft: '3px solid rgba(139, 69, 19, 0.6)',
+                      borderRight: '3px solid rgba(139, 69, 19, 0.6)',
+                      borderTop: '6px solid rgba(255, 255, 255, 0.8)',
+                      borderBottom: '6px solid rgba(255, 255, 255, 0.8)'
+                    }}
+                    onClick={() => toggleLabel('trigger.dev')}
+                    onMouseDown={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(0.95)';
+                        e.currentTarget.style.transition = 'transform 0.1s ease-out';
+                      }
+                    }}
+                    onMouseUp={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                          if (e.currentTarget) {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                          }
+                        }, 50);
+                      }
+                    }}
+                  >
+                    <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>trigger.dev</span>
+                  </div>
+                </div>
               </div>
+                      {/* Big Down Arrow Button */}
+        <div className="flex justify-center mb-4 mt-18">
+          <button
+            onClick={() => {
+              const nextSection = document.getElementById('onboarding-section');
+              if (nextSection) {
+                nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
+            className="group bg-white/10 hover:bg-white/20 backdrop-blur-lg border-2 border-white/40 hover:border-white/60 transition-all duration-300 hover:scale-110 hover:shadow-2xl animate-bounce cursor-pointer"
+            style={{
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+              width: '64px',
+              height: '64px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              animation: 'bounce 2s ease-in-out infinite',
+              transformOrigin: 'center'
+            }}
+          >
+            <div className="text-white text-4xl font-bold group-hover:scale-125 transition-transform duration-300">↓</div>
+          </button>
+        </div>
             </div>
 
-      {/* Footer with Spotify Playlist */}
-      <footer className="relative z-10 mt-16 pb-8">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center">
-            <a 
-              href="https://buymeacoffee.com/yourusername" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-            >
-              <Coffee className="w-6 h-6" />
-              Buy me a coffee
-            </a>
-            
-            <p className="text-white/60 text-xs mt-4">
-              Made with ❤️ and lots of coffee
-                </p>
-              </div>
+      {/* Onboarding Section */}
+      <div id="onboarding-section" className="relative z-10 min-h-screen bg-gradient-to-b from-transparent via-white/5 to-white/10 py-8 md:py-12 px-4 flex flex-col items-center justify-center">
+        {/* Introduction Text */}
+        <div className="text-center max-w-3xl px-4 mb-8 md:mb-12">
+          <div className="bg-black/30 backdrop-blur-md rounded-xl px-6 py-4 border border-white/20">
+            <p className="text-white text-sm md:text-base lg:text-lg drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] leading-relaxed">
+              Your webchella kit includes a <span className="font-semibold text-white">Fullstack Agent</span> and <span className="font-semibold text-white">PM Agent</span> to guide your development, along with <span className="font-semibold text-white">Code Quality Cursor Rules</span> for consistent success.
+            </p>
+          </div>
         </div>
-      </footer>
+        
+        <div className="w-full max-w-4xl mx-auto flex items-center justify-center flex-1">
+          <Card className="bg-black/40 backdrop-blur-2xl border-white/30 shadow-2xl ring-1 ring-white/10 w-full h-full min-h-[600px] md:min-h-[650px] flex flex-col">
+            <CardHeader className="text-center">
+              <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-4">
+                <span className="text-white font-semibold text-sm tracking-wide">
+                  Step {currentStep + 1} of {onboardingSteps.length}
+                </span>
+              </div>
+              <CardTitle className="text-white drop-shadow-lg text-2xl md:text-3xl lg:text-4xl font-bold px-2 mb-3">
+                {onboardingSteps[currentStep].title}
+              </CardTitle>
+              <CardDescription className="text-white/90 text-base md:text-lg lg:text-xl px-2 leading-relaxed">
+                {onboardingSteps[currentStep].description}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-1 flex flex-col py-6 px-4 md:px-6">
+              {/* Content Area - Takes available space */}
+              <div className="flex-1 flex items-center justify-center">
+                <div className="space-y-6 w-full">
+                  {/* Logo Display */}
+                  {onboardingSteps[currentStep].logo && (
+                    <div className="flex justify-center">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:border-white/30 transition-all duration-300 shadow-lg">
+                        <img 
+                          src={onboardingSteps[currentStep].logo} 
+                          alt="Service logo"
+                          className="h-12 md:h-16 w-auto object-contain"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Command Display for Step 1 */}
+                  {currentStep === 0 && onboardingSteps[currentStep].command && (
+                    <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 md:p-4 border border-white/30 shadow-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-white font-medium text-xs md:text-sm font-mono tracking-wider">TERMINAL</span>
+                      </div>
+                      <div 
+                        className="font-mono text-xs md:text-sm bg-black/60 rounded-lg p-3 md:p-4 cursor-pointer hover:bg-black/80 transition-all duration-200 hover:border-green-400/50 border border-white/20 overflow-x-auto shadow-inner"
+                        onClick={async () => {
+                          await navigator.clipboard.writeText(onboardingSteps[currentStep].command || '');
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2000);
+                        }}
+                        title="Click to copy"
+                      >
+                        <span className="text-green-400 font-semibold">$</span>{' '}
+                        <span className="text-white font-medium whitespace-nowrap">{onboardingSteps[currentStep].command}</span>
+                      </div>
+                      <p className={`font-medium text-xs mt-2 flex items-center gap-1.5 transition-colors duration-300 ${copied ? 'text-green-400' : 'text-green-400/70'}`}>
+                        {copied ? (
+                          <>
+                            <Check className="w-4 h-4 animate-bounce" />
+                            <span>Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Click to copy</span>
+                          </>
+                        )}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Action Button */}
+                  <div className="flex justify-center">
+                    {currentStep === onboardingSteps.length - 1 ? (
+                      <a
+                        href="https://twitter.com/intent/tweet?text=I'm%20shipping%20with%20webchella!%20Check%20it%20out%20at%20webchella.io%20🚀"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative inline-flex items-center justify-center w-24 h-24 md:w-32 md:h-32 rounded-full transition-all duration-300 hover:scale-110 cursor-pointer"
+                      >
+                        {/* Disco ball gradient background */}
+                        <div 
+                          className="absolute inset-0 rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                          style={{
+                            background: 'radial-gradient(circle at center, #ff6b6b, #ffa94d, #ffd93d, #6bcf7f, #4dabf7, #9775fa, #f783ac)',
+                            backgroundSize: '400% 400%',
+                            animation: 'discoRotate 8s ease infinite',
+                          }}
+                        />
+                        {/* Overlay for depth */}
+                        <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-white/20 to-transparent" />
+                        {/* Inner shadow */}
+                        <div className="absolute inset-[4px] rounded-full bg-gradient-to-tr from-black/20 to-transparent" />
+                        {/* Text with better contrast - always filled */}
+                        <span className="relative z-10 text-white font-bold text-xl md:text-2xl tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] [!color:white!important]" style={{ WebkitTextStroke: '0px' }}>
+                          SHIP
+                        </span>
+                        
+                        <style jsx>{`
+                          @keyframes discoRotate {
+                            0%, 100% {
+                              background-position: 0% 0%;
+                            }
+                            25% {
+                              background-position: 100% 0%;
+                            }
+                            50% {
+                              background-position: 100% 100%;
+                            }
+                            75% {
+                              background-position: 0% 100%;
+                            }
+                          }
+                        `}</style>
+                      </a>
+                    ) : (
+                      <a
+                        href={onboardingSteps[currentStep].link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 hover:border-white/50 text-white font-medium text-sm md:text-base transition-all duration-300 hover:scale-105 cursor-pointer"
+                      >
+                        {onboardingSteps[currentStep].cta}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Carousel Navigation - Fixed at bottom */}
+              <div className="flex items-center justify-between mt-auto pt-4 px-2 border-t border-white/20">
+                <button
+                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                  disabled={currentStep === 0}
+                  className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 px-4 py-2 rounded-lg text-white font-medium text-sm md:text-base transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer disabled:hover:bg-white/10"
+                >
+                  ← Previous
+                </button>
+
+                {/* Dots Indicator */}
+                <div className="flex gap-2 bg-white/5 rounded-full p-1 backdrop-blur-sm border border-white/10">
+                  {onboardingSteps.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentStep(index)}
+                      className={`rounded-full transition-all duration-300 cursor-pointer ${
+                        index === currentStep
+                          ? 'w-8 h-2 bg-white shadow-lg'
+                          : 'w-2 h-2 bg-white/40 hover:bg-white/60'
+                      }`}
+                      aria-label={`Go to step ${index + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => setCurrentStep(Math.min(onboardingSteps.length - 1, currentStep + 1))}
+                  disabled={currentStep === onboardingSteps.length - 1}
+                  className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 px-4 py-2 rounded-lg text-white font-medium text-sm md:text-base transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer disabled:hover:bg-white/10"
+                >
+                  Next →
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
     </main>
   );
 }

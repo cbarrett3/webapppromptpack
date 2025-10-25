@@ -1,19 +1,41 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --primary: 210 40% 98%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
+@theme {
+  /* Colors */
+  --color-background: oklch(4.9% 0.05 222.2);
+  --color-foreground: oklch(98% 0.01 210);
+  --color-card: oklch(4.9% 0.05 222.2);
+  --color-card-foreground: oklch(98% 0.01 210);
+  --color-popover: oklch(4.9% 0.05 222.2);
+  --color-popover-foreground: oklch(98% 0.01 210);
+  --color-primary: oklch(11.2% 0.02 222.2);
+  --color-primary-foreground: oklch(98% 0.01 210);
+  --color-secondary: oklch(17.5% 0.02 217.2);
+  --color-secondary-foreground: oklch(98% 0.01 210);
+  --color-muted: oklch(17.5% 0.02 217.2);
+  --color-muted-foreground: oklch(65.1% 0.01 215);
+  --color-accent: oklch(17.5% 0.02 217.2);
+  --color-accent-foreground: oklch(98% 0.01 210);
+  --color-destructive: oklch(30.6% 0.15 0);
+  --color-destructive-foreground: oklch(98% 0.01 210);
+  --color-border: oklch(17.5% 0.02 217.2);
+  --color-input: oklch(17.5% 0.02 217.2);
+  --color-ring: oklch(83.9% 0.01 212.7);
+  
+  /* Border Radius */
+  --radius-sm: calc(0.5rem - 4px);
+  --radius-md: calc(0.5rem - 2px);
+  --radius-lg: 0.5rem;
+  
+  /* Animations */
+  --animate-balloon: balloon 4s ease-in-out infinite;
+  --animate-spooky: spooky 3s ease-in-out infinite;
+  --animate-ripple: ripple 0.8s ease-out;
 }
 
 body {
-  color: hsl(var(--foreground));
-  background: hsl(var(--background));
+  color: oklch(var(--color-foreground));
+  background: oklch(var(--color-background));
 }
 
 @keyframes balloon {

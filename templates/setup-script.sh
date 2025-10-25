@@ -289,9 +289,11 @@ EOF
 EOF
 
     # Tailwind CSS 4+ configuration with design system
-    cat > tailwind.config.js << 'EOF'
-/** @type {import('tailwindcss').Config} */
-const config = {
+    cat > tailwind.config.ts << 'EOF'
+import type { Config } from 'tailwindcss'
+import tailwindcssAnimate from 'tailwindcss-animate'
+
+const config: Config = {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -365,10 +367,10 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [tailwindcssAnimate],
 }
 
-module.exports = config
+export default config
 EOF
 
     # Vitest configuration for webapppromptpack
@@ -668,6 +670,7 @@ EOF
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 import * as schema from './db/schema'
+import { logger } from './logger'
 
 let db: ReturnType<typeof drizzle>
 let client: ReturnType<typeof postgres>
@@ -679,7 +682,7 @@ export function getDb() {
     if (!connectionString) {
       // For development, provide a fallback connection string
       const fallbackUrl = 'postgresql://localhost:5432/webapppromptpack_dev'
-      console.warn('DATABASE_URL not set, using fallback:', fallbackUrl)
+      logger.warn('DATABASE_URL not set, using fallback:', fallbackUrl)
       client = postgres(fallbackUrl, {
         max: 10,
         idle_timeout: 20,
@@ -719,7 +722,7 @@ EOF
 import { initTRPC, TRPCError } from '@trpc/server'
 import { auth } from './auth'
 
-export const createTRPCContext = async (opts: { req: any; res?: any }) => {
+export const createTRPCContext = async (opts: { req: Request; res?: Response }) => {
   try {
     // Create headers object for Better Auth
     const headers = new Headers()
@@ -741,7 +744,7 @@ export const createTRPCContext = async (opts: { req: any; res?: any }) => {
       req: opts.req,
       res: opts.res
     }
-  } catch (error) {
+  } catch {
     // Use proper logging instead of console.error
     return {
       user: null,
@@ -912,7 +915,7 @@ const handler = (req: Request) =>
     endpoint: '/api/trpc',
     req,
     router: appRouter,
-    createContext: () => createTRPCContext({ req, res: {} as any }),
+    createContext: () => createTRPCContext({ req }),
   })
 
 export { handler as GET, handler as POST }
@@ -980,14 +983,16 @@ EOF
     cat > scripts/migrate.ts << 'EOF'
 import { migrate } from 'drizzle-orm/postgres-js/migrator'
 import { getDb, testConnection } from '../lib/db'
+import { logger } from '../lib/logger'
 
 async function runMigrations() {
   try {
     await testConnection()
     const db = getDb()
     await migrate(db, { migrationsFolder: './drizzle' })
+    logger.info('Database migrations completed successfully')
   } catch (error) {
-    console.error('Migration failed:', error)
+    logger.error('Migration failed:', error)
     process.exit(1)
   }
 }
@@ -1028,7 +1033,7 @@ export default defineConfig({
   out: './drizzle',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env['DATABASE_URL']!,
+    url: process.env['DATABASE_URL'] || 'postgresql://localhost:5432/webapppromptpack_dev',
   },
 })
 EOF
@@ -1229,6 +1234,7 @@ EOF
 'use client'
 
 import { useState } from 'react'
+import { logger } from '@/lib/logger'
 
 export function useAuth() {
   const [user, setUser] = useState<{ id: string; email: string; name: string } | null>(null)
@@ -1238,11 +1244,11 @@ export function useAuth() {
     setLoading(true)
     try {
       // TODO: Implement Better Auth integration
-      console.log('Sign in:', email, password)
+      logger.debug('Sign in attempt:', { email })
       setUser({ id: '1', email, name: 'User' })
       return { success: true }
     } catch (error) {
-      console.error('Sign in failed:', error)
+      logger.error('Sign in failed:', error)
       throw error
     } finally {
       setLoading(false)
@@ -1253,11 +1259,11 @@ export function useAuth() {
     setLoading(true)
     try {
       // TODO: Implement Better Auth integration
-      console.log('Sign up:', email, password, name)
+      logger.debug('Sign up attempt:', { email, name })
       setUser({ id: '1', email, name })
       return { success: true }
     } catch (error) {
-      console.error('Sign up failed:', error)
+      logger.error('Sign up failed:', error)
       throw error
     } finally {
       setLoading(false)
@@ -1268,10 +1274,10 @@ export function useAuth() {
     setLoading(true)
     try {
       // TODO: Implement Better Auth integration
-      console.log('Sign out')
+      logger.debug('Sign out attempt')
       setUser(null)
     } catch (error) {
-      console.error('Sign out failed:', error)
+      logger.error('Sign out failed:', error)
       throw error
     } finally {
       setLoading(false)

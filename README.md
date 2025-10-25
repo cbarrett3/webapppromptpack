@@ -1,15 +1,12 @@
 # Blueberry Prompt Kit
 
 ```
-    🫐🫐
+     🫐🫐
    🫐🫐🫐🫐
   🫐🫐🫐🫐🫐
- 🫐🫐🫐🫐🫐🫐
-🫐🫐🫐🫐🫐🫐🫐
- 🫐🫐🫐🫐🫐🫐
-  🫐🫐🫐🫐🫐
    🫐🫐🫐🫐
-    🫐🫐
+     🫐🫐
+ 
 ```
 
 A comprehensive framework for building web applications with AI agents. Provides strict guardrails, proven patterns, and a systematic approach to development.

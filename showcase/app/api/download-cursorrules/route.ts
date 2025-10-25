@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const cursorRulesContent = `# webapppromptpack - Cursor Rules
@@ -83,12 +83,12 @@ You are working with the webapppromptpack framework - a data-first, back-to-fron
 - **Provide examples and patterns**
 - **Keep documentation up to date**
 - **Share knowledge and best practices**
-`
+`;
 
   return new NextResponse(cursorRulesContent, {
     headers: {
-      'Content-Type': 'text/plain',
-      'Content-Disposition': 'attachment; filename=".cursorrules"',
+      "Content-Type": "text/plain",
+      "Content-Disposition": 'attachment; filename=".cursorrules"',
     },
-  })
+  });
 }

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const comprehensiveGuide = `# webapppromptpack - Complete Framework
@@ -118,12 +118,13 @@ npm run dev
 \`\`\`
 
 This is the complete webapppromptpack framework - everything you need to build consistent, high-quality web applications with AI agents.
-`
+`;
 
   return new NextResponse(comprehensiveGuide, {
     headers: {
-      'Content-Type': 'text/plain',
-      'Content-Disposition': 'attachment; filename="blueberry-prompt-kit-complete.txt"',
+      "Content-Type": "text/plain",
+      "Content-Disposition":
+        'attachment; filename="blueberry-prompt-kit-complete.txt"',
     },
-  })
+  });
 }

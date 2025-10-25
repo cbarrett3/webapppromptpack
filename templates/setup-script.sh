@@ -134,13 +134,18 @@ const nextConfig = {
   // Experimental features for performance
   experimental: {
     optimizePackageImports: ['lucide-react'],
-    serverComponentsExternalPackages: ['@types/node'],
   },
+  
+  // Server external packages (moved from experimental)
+  serverExternalPackages: ['@types/node'],
   
   // Compiler optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  
+  // Set output file tracing root to avoid workspace warnings
+  outputFileTracingRoot: process.cwd(),
 }
 
 module.exports = nextConfig

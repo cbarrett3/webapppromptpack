@@ -6,6 +6,10 @@
 
 set -euo pipefail
 
+# Debug: Show current directory and environment
+echo "DEBUG: Current directory: $(pwd)"
+echo "DEBUG: Script arguments: $@"
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'

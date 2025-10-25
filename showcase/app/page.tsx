@@ -492,7 +492,7 @@ export default function Home() {
 
             {/* Tech Stack Logos */}
             <div className="relative z-10 mt-8">
-              <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 md:gap-4 px-2 sm:px-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 sm:gap-3 md:gap-4 px-2 sm:px-4 justify-items-center justify-center">
           <div 
             className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
             style={{ 
@@ -871,22 +871,18 @@ export default function Home() {
           >
             <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>Tailwind</span>
                   </div>
-                </div>
-
-                {/* Second Row - Additional Tools */}
-                <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-4">
                   <div 
                     className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
                     style={{ 
                       padding: '8px 12px', 
                       boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                      backgroundColor: activeLabels.has('Vercel AI SDK') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(59, 130, 246, 0.6)',
+                      backgroundColor: activeLabels.has('AI SDK') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(59, 130, 246, 0.6)',
                       borderLeft: '3px solid rgba(59, 130, 246, 0.6)',
                       borderRight: '3px solid rgba(59, 130, 246, 0.6)',
                       borderTop: '6px solid rgba(255, 255, 255, 0.8)',
                       borderBottom: '6px solid rgba(255, 255, 255, 0.8)'
                     }}
-                    onClick={() => toggleLabel('Vercel AI SDK')}
+                    onClick={() => toggleLabel('AI SDK')}
                     onMouseDown={(e) => {
                       if (e.currentTarget) {
                         e.currentTarget.style.transform = 'scale(0.95)';
@@ -905,7 +901,7 @@ export default function Home() {
                       }
                     }}
                   >
-                    <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>Vercel AI SDK</span>
+                    <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>AI SDK</span>
                   </div>
                   <div 
                     className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
@@ -1002,6 +998,70 @@ export default function Home() {
                     }}
                   >
                     <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>trigger.dev</span>
+                  </div>
+                  <div 
+                    className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
+                    style={{ 
+                      padding: '8px 12px', 
+                      boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      backgroundColor: activeLabels.has('Supabase') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(62, 207, 142, 0.6)',
+                      borderLeft: '3px solid rgba(62, 207, 142, 0.6)',
+                      borderRight: '3px solid rgba(62, 207, 142, 0.6)',
+                      borderTop: '6px solid rgba(255, 255, 255, 0.8)',
+                      borderBottom: '6px solid rgba(255, 255, 255, 0.8)'
+                    }}
+                    onClick={() => toggleLabel('Supabase')}
+                    onMouseDown={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(0.95)';
+                        e.currentTarget.style.transition = 'transform 0.1s ease-out';
+                      }
+                    }}
+                    onMouseUp={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                          if (e.currentTarget) {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                          }
+                        }, 50);
+                      }
+                    }}
+                  >
+                    <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>Supabase</span>
+                  </div>
+                  <div 
+                    className="flex items-center justify-center px-3 py-2 sm:px-6 sm:py-4 md:px-8 md:py-6 bg-white/20 backdrop-blur-lg rounded-xl shadow-2xl cursor-pointer transition-all duration-300" 
+                    style={{ 
+                      padding: '8px 12px', 
+                      boxShadow: '0 50px 100px -20px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      backgroundColor: activeLabels.has('Pino') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 193, 7, 0.6)',
+                      borderLeft: '3px solid rgba(255, 193, 7, 0.6)',
+                      borderRight: '3px solid rgba(255, 193, 7, 0.6)',
+                      borderTop: '6px solid rgba(255, 255, 255, 0.8)',
+                      borderBottom: '6px solid rgba(255, 255, 255, 0.8)'
+                    }}
+                    onClick={() => toggleLabel('Pino')}
+                    onMouseDown={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(0.95)';
+                        e.currentTarget.style.transition = 'transform 0.1s ease-out';
+                      }
+                    }}
+                    onMouseUp={(e) => {
+                      if (e.currentTarget) {
+                        e.currentTarget.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                          if (e.currentTarget) {
+                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                          }
+                        }, 50);
+                      }
+                    }}
+                  >
+                    <span className="text-white font-bold text-sm sm:text-base md:text-lg drop-shadow-2xl" style={{ fontWeight: 'bold', fontSize: '14px', textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)', fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}>Pino</span>
                   </div>
                 </div>
               </div>
@@ -1201,38 +1261,80 @@ export default function Home() {
               </div>
 
               {/* Carousel Navigation - Fixed at bottom */}
-              <div className="flex items-center justify-between mt-auto pt-4 px-2 border-t border-white/20">
-                <button
-                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-                  disabled={currentStep === 0}
-                  className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 px-4 py-2 rounded-lg text-white font-medium text-sm md:text-base transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer disabled:hover:bg-white/10"
-                >
-                  ← Previous
-                </button>
-
-                {/* Dots Indicator */}
-                <div className="flex gap-2 bg-white/5 rounded-full p-1 backdrop-blur-sm border border-white/10">
-                  {onboardingSteps.map((_, index) => (
+              <div className="mt-auto pt-4 px-2 border-t border-white/20">
+                {/* Mobile Layout - Stacked */}
+                <div className="flex flex-col gap-4 sm:hidden">
+                  {/* Dots Indicator - Full width on mobile */}
+                  <div className="flex justify-center">
+                    <div className="flex gap-2 bg-white/5 rounded-full p-1 backdrop-blur-sm border border-white/10">
+                      {onboardingSteps.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentStep(index)}
+                          className={`rounded-full transition-all duration-300 cursor-pointer ${
+                            index === currentStep
+                              ? 'w-6 h-2 bg-white shadow-lg'
+                              : 'w-2 h-2 bg-white/40 hover:bg-white/60'
+                          }`}
+                          aria-label={`Go to step ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Buttons - Full width on mobile */}
+                  <div className="flex gap-3">
                     <button
-                      key={index}
-                      onClick={() => setCurrentStep(index)}
-                      className={`rounded-full transition-all duration-300 cursor-pointer ${
-                        index === currentStep
-                          ? 'w-8 h-2 bg-white shadow-lg'
-                          : 'w-2 h-2 bg-white/40 hover:bg-white/60'
-                      }`}
-                      aria-label={`Go to step ${index + 1}`}
-                    />
-                  ))}
+                      onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                      disabled={currentStep === 0}
+                      className="flex-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 px-4 py-3 rounded-lg text-white font-medium text-sm transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer disabled:hover:bg-white/10"
+                    >
+                      ← Previous
+                    </button>
+                    <button
+                      onClick={() => setCurrentStep(Math.min(onboardingSteps.length - 1, currentStep + 1))}
+                      disabled={currentStep === onboardingSteps.length - 1}
+                      className="flex-1 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 px-4 py-3 rounded-lg text-white font-medium text-sm transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer disabled:hover:bg-white/10"
+                    >
+                      Next →
+                    </button>
+                  </div>
                 </div>
 
-                <button
-                  onClick={() => setCurrentStep(Math.min(onboardingSteps.length - 1, currentStep + 1))}
-                  disabled={currentStep === onboardingSteps.length - 1}
-                  className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 px-4 py-2 rounded-lg text-white font-medium text-sm md:text-base transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer disabled:hover:bg-white/10"
-                >
-                  Next →
-                </button>
+                {/* Desktop Layout - Horizontal */}
+                <div className="hidden sm:flex items-center justify-between">
+                  <button
+                    onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                    disabled={currentStep === 0}
+                    className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 px-4 py-2 rounded-lg text-white font-medium text-sm md:text-base transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer disabled:hover:bg-white/10"
+                  >
+                    ← Previous
+                  </button>
+
+                  {/* Dots Indicator */}
+                  <div className="flex gap-2 bg-white/5 rounded-full p-1 backdrop-blur-sm border border-white/10">
+                    {onboardingSteps.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentStep(index)}
+                        className={`rounded-full transition-all duration-300 cursor-pointer ${
+                          index === currentStep
+                            ? 'w-8 h-2 bg-white shadow-lg'
+                            : 'w-2 h-2 bg-white/40 hover:bg-white/60'
+                        }`}
+                        aria-label={`Go to step ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setCurrentStep(Math.min(onboardingSteps.length - 1, currentStep + 1))}
+                    disabled={currentStep === onboardingSteps.length - 1}
+                    className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 px-4 py-2 rounded-lg text-white font-medium text-sm md:text-base transition-all duration-200 disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer disabled:hover:bg-white/10"
+                  >
+                    Next →
+                  </button>
+                </div>
               </div>
             </CardContent>
           </Card>

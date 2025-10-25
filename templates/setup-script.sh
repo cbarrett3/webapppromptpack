@@ -122,7 +122,7 @@ main() {
     
     # Development dependencies
     echo -e "${BLUE}🛠️ Installing development dependencies...${NC}"
-    if ! npm install -D prettier@3.6.2 eslint-config-prettier@10.1.8 vitest@4.0.3 @testing-library/react@16.3.0 @testing-library/jest-dom@6.9.1 @vitejs/plugin-react@5.1.0 autoprefixer@10.4.21 @typescript-eslint/parser@8.46.2 @typescript-eslint/eslint-plugin@8.46.2 @tailwindcss/postcss@4.1.16 drizzle-kit@0.31.5 @vitest/coverage-v8@4.0.3 postcss@8.5.6 pino-pretty@13.1.2 @types/react@19.2.2 @types/react-dom@19.2.2 tsx@4.20.6 husky@9.1.7 lint-staged@16.2.6 @commitlint/config-conventional@20.0.0 @commitlint/cli@20.1.0; then
+    if ! npm install -D prettier@3.6.2 eslint-config-prettier@10.1.8 vitest@4.0.3 @testing-library/react@16.3.0 @testing-library/jest-dom@6.9.1 @vitejs/plugin-react@5.1.0 autoprefixer@10.4.21 @typescript-eslint/parser@8.46.2 @typescript-eslint/eslint-plugin@8.46.2 @tailwindcss/postcss@4.1.16 drizzle-kit@0.31.5 @vitest/coverage-v8@4.0.3 postcss@8.5.6 pino-pretty@13.1.2 @types/react@19.2.2 @types/react-dom@19.2.2 tsx@4.20.6 husky@9.1.7 lint-staged@16.2.6 @commitlint/config-conventional@20.0.0 @commitlint/cli@20.1.0 jsdom@27.0.1; then
         error_exit "Failed to install dev dependencies. Please check your internet connection and try again."
     fi
     
@@ -219,67 +219,61 @@ EOF
 }
 EOF
 
-    # Strict ESLint configuration for webapppromptpack
-    cat > .eslintrc.json << 'EOF'
-{
-  "extends": [
-    "next/core-web-vitals",
-    "@typescript-eslint/recommended",
-    "@typescript-eslint/recommended-requiring-type-checking",
-    "prettier"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module",
-    "project": "./tsconfig.json"
+    # Modern ESLint flat config for webapppromptpack
+    cat > eslint.config.mjs << 'EOF'
+import { defineConfig } from 'eslint/config'
+import nextVitals from 'eslint-config-next/core-web-vitals'
+import nextTs from 'eslint-config-next/typescript'
+import typescriptEslint from '@typescript-eslint/eslint-plugin'
+import typescriptParser from '@typescript-eslint/parser'
+import prettier from 'eslint-config-prettier'
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.json',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-non-null-assertion': 'warn',
+      'prefer-const': 'error',
+      'no-var': 'error',
+      'no-console': 'warn',
+      'no-debugger': 'error',
+    },
   },
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/explicit-function-return-type": "warn",
-    "@typescript-eslint/no-non-null-assertion": "error",
-    "@typescript-eslint/prefer-nullish-coalescing": "error",
-    "@typescript-eslint/prefer-optional-chain": "error",
-    "@typescript-eslint/no-unnecessary-condition": "error",
-    "@typescript-eslint/no-floating-promises": "error",
-    "@typescript-eslint/await-thenable": "error",
-    "@typescript-eslint/no-misused-promises": "error",
-    "@typescript-eslint/require-await": "error",
-    "@typescript-eslint/no-unsafe-assignment": "error",
-    "@typescript-eslint/no-unsafe-call": "error",
-    "@typescript-eslint/no-unsafe-member-access": "error",
-    "@typescript-eslint/no-unsafe-return": "error",
-    "@typescript-eslint/prefer-readonly": "error",
-    "@typescript-eslint/prefer-function-type": "error",
-    "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/consistent-type-exports": "error",
-    "prefer-const": "error",
-    "no-var": "error",
-    "no-console": "warn",
-    "no-debugger": "error",
-    "no-duplicate-imports": "error",
-    "no-unused-expressions": "error",
-    "prefer-template": "error",
-    "object-shorthand": "error",
-    "prefer-arrow-callback": "error",
-    "prefer-destructuring": "error",
-    "no-nested-ternary": "error",
-    "no-unneeded-ternary": "error",
-    "react/jsx-boolean-value": "error",
-    "react/jsx-curly-brace-presence": "error",
-    "react/jsx-fragments": "error",
-    "react/jsx-no-useless-fragment": "error",
-    "react/jsx-prefer-fragment": "error",
-    "react/no-array-index-key": "warn",
-    "react/no-unused-prop-types": "error",
-    "react/self-closing-comp": "error",
-    "react-hooks/exhaustive-deps": "error",
-    "react-hooks/rules-of-hooks": "error"
+  {
+    files: ['**/*.{js,jsx}'],
+    rules: {
+      'prefer-const': 'error',
+      'no-var': 'error',
+      'no-console': 'warn',
+      'no-debugger': 'error',
+    },
   },
-  "ignorePatterns": ["node_modules/", ".next/", "out/", "dist/", "build/"]
-}
+  {
+    files: ['**/*.config.js', '**/*.config.mjs'],
+    rules: {
+      'prefer-const': 'error',
+      'no-var': 'error',
+    },
+  },
+  prettier,
+])
+
+export default eslintConfig
 EOF
 
     # Strict Prettier configuration for webapppromptpack
@@ -295,10 +289,9 @@ EOF
 EOF
 
     # Tailwind CSS 4+ configuration with design system
-    cat > tailwind.config.ts << 'EOF'
-import type { Config } from 'tailwindcss'
-
-const config: Config = {
+    cat > tailwind.config.js << 'EOF'
+/** @type {import('tailwindcss').Config} */
+const config = {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -375,7 +368,7 @@ const config: Config = {
   plugins: [require('tailwindcss-animate')],
 }
 
-export default config
+module.exports = config
 EOF
 
     # Vitest configuration for webapppromptpack
@@ -574,8 +567,8 @@ drizzle/
 EOF
 
     # Update package.json with helpful scripts
-    npm pkg set scripts.lint="next lint" || error_exit "Failed to update package.json scripts"
-    npm pkg set scripts.lint:fix="next lint --fix" || error_exit "Failed to update package.json scripts"
+    npm pkg set scripts.lint="eslint . --ext .js,.jsx,.ts,.tsx" || error_exit "Failed to update package.json scripts"
+    npm pkg set scripts.lint:fix="eslint . --ext .js,.jsx,.ts,.tsx --fix" || error_exit "Failed to update package.json scripts"
     npm pkg set scripts.format="prettier --write ." || error_exit "Failed to update package.json scripts"
     npm pkg set scripts.format:check="prettier --check ." || error_exit "Failed to update package.json scripts"
     npm pkg set scripts.test="vitest" || error_exit "Failed to update package.json scripts"
@@ -696,7 +689,7 @@ export async function testConnection() {
   try {
     await client`SELECT 1`
     // Connection successful - no logging needed in production
-  } catch (error) {
+  } catch {
     throw new Error('Database connection test failed')
   }
 }
@@ -817,7 +810,7 @@ export const appRouter = router({
       try {
         const result = await db.select().from(users).where(eq(users.id, ctx.user.id)).limit(1)
         return result[0] || null
-      } catch (error) {
+      } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Failed to get current user'
@@ -831,7 +824,7 @@ export const appRouter = router({
     getAll: publicProcedure.query(async () => {
       try {
         return await db.select().from(posts)
-      } catch (error) {
+      } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Failed to get posts'
@@ -852,7 +845,7 @@ export const appRouter = router({
             userId: ctx.user.id,
           }).returning()
           return result[0]
-        } catch (error) {
+        } catch {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: 'Failed to create post'
@@ -1208,11 +1201,11 @@ export function useAuth() {
   const [user, setUser] = useState<{ id: string; email: string; name: string } | null>(null)
   const [loading, setLoading] = useState(false)
 
-  const signIn = async (email: string, _password: string) => {
+  const signIn = async (email: string, password: string) => {
     setLoading(true)
     try {
       // TODO: Implement Better Auth integration
-      console.log('Sign in:', email)
+      console.log('Sign in:', email, password)
       setUser({ id: '1', email, name: 'User' })
       return { success: true }
     } catch (error) {
@@ -1223,11 +1216,11 @@ export function useAuth() {
     }
   }
 
-  const signUp = async (email: string, _password: string, name: string) => {
+  const signUp = async (email: string, password: string, name: string) => {
     setLoading(true)
     try {
       // TODO: Implement Better Auth integration
-      console.log('Sign up:', email, name)
+      console.log('Sign up:', email, password, name)
       setUser({ id: '1', email, name })
       return { success: true }
     } catch (error) {
@@ -1287,6 +1280,27 @@ export interface ApiResponse<T> {
   success: boolean
   message?: string
 }
+EOF
+
+    # Sample test file
+    cat > lib/utils.test.ts << 'EOF'
+import { describe, it, expect } from 'vitest'
+import { cn } from './utils'
+
+describe('cn utility', () => {
+  it('should merge class names correctly', () => {
+    expect(cn('class1', 'class2')).toBe('class1 class2')
+  })
+
+  it('should handle conditional classes', () => {
+    expect(cn('base', true && 'conditional')).toBe('base conditional')
+    expect(cn('base', false && 'conditional')).toBe('base')
+  })
+
+  it('should handle undefined and null values', () => {
+    expect(cn('base', undefined, null)).toBe('base')
+  })
+})
 EOF
 
     # Error boundary component
@@ -1444,6 +1458,9 @@ EOF
     fi
     if [ ! -f "next.config.js" ]; then
         error_exit "Setup verification failed: next.config.js not found"
+    fi
+    if [ ! -f "eslint.config.mjs" ]; then
+        error_exit "Setup verification failed: eslint.config.mjs not found"
     fi
     if [ ! -f ".cursorrules" ]; then
         error_exit "Setup verification failed: .cursorrules not found"

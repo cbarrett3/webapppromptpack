@@ -15,7 +15,7 @@ __  _  __ ____\_ |__ _____  ______ ______ _____________  ____   _____ _______/  
 
 ```bash
 # One command setup with everything configured
-curl -sSL https://raw.githubusercontent.com/cbarrett3/webapppromptpack/main/templates/setup-script.sh | bash -s my-app
+curl -sSL https://raw.githubusercontent.com/cbarrett3/blueberry-prompt-kit/main/templates/setup-script.sh | bash -s my-app
 
 cd my-app && npm run dev
 ```

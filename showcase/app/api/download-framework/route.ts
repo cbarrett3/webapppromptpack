@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  const comprehensiveGuide = `# Blueberry Prompt Kit - Complete Framework
+  const comprehensiveGuide = `# webapppromptpack - Complete Framework
 
 ## Overview
-The Blueberry Prompt Kit is a comprehensive framework for building web applications with AI agents. It provides strict guardrails, proven patterns, and a systematic approach to development.
+The webapppromptpack is a comprehensive framework for building web applications with AI agents. It provides strict guardrails, proven patterns, and a systematic approach to development that makes it impossible to mess up.
 
 ## Technology Stack (Non-Negotiable)
 - **Frontend**: Next.js 14+ (App Router) + TypeScript + Tailwind CSS 4+ + shadcn/ui
@@ -117,7 +117,7 @@ echo "NEXTAUTH_URL=http://localhost:3000" >> .env.local
 npm run dev
 \`\`\`
 
-This is the complete Blueberry Prompt Kit framework - everything you need to build consistent, high-quality web applications with AI agents.
+This is the complete webapppromptpack framework - everything you need to build consistent, high-quality web applications with AI agents.
 `
 
   return new NextResponse(comprehensiveGuide, {

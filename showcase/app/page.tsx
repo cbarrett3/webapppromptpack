@@ -7,17 +7,31 @@ export default function Home() {
     <main className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-foreground mb-8">
-            webapppromptpack showcase
-          </h1>
+          {/* ASCII Art Header */}
+          <div className="text-center mb-12">
+            <pre className="text-xs md:text-sm font-mono text-foreground/80 leading-tight mb-6">
+{`              ___.                                                            __                       __ 
+__  _  __ ____\\_ |__ _____  ______ ______ _____________  ____   _____ _______/  |____________    ____ |  | __
+\\ \\/ \\/ // __ \\| __ \\\\__  \\ \\____ \\\\____ \\\\____ \\_  __ \\/  _ \\ /     \\\\____ \\   __\\____ \\__  \\ _/ ___\\|  |/ /
+ \\     /\\  ___/| \\_\\ \\/ __ \\|  |_> >  |_> >  |_> >  | \\(  <_> )  Y Y  \\  |_> >  | |  |_> > __ \\\\  \\___|    < 
+  \\/\\_/  \\___  >___  (____  /   __/|   __/|   __/|__|   \\____/|__|_|  /   __/|__| |   __(____  /\\___  >__|_ \\
+             \\/    \\/     \\/|__|   |__|   |__|                      \\/|__|        |__|       \\/     \\/     \\/`}
+            </pre>
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
+              webapppromptpack
+            </h1>
+            <p className="text-lg text-muted-foreground mb-8">
+              A comprehensive framework for building web applications with AI agents
+            </p>
+          </div>
           
           <div className="space-y-8">
-            <section className="bg-secondary p-6 rounded-lg">
+            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-6 rounded-lg border border-border/50 shadow-lg">
               <h2 className="text-2xl font-semibold mb-4">Framework Overview</h2>
               <p className="text-secondary-foreground mb-4">
-                The Blueberry Prompt Kit is a comprehensive framework for building web applications 
+                The webapppromptpack is a comprehensive framework for building web applications 
                 with AI agents. It provides strict guardrails, proven patterns, and a systematic 
-                approach to development.
+                approach to development that makes it <strong>impossible to mess up</strong>.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-background p-4 rounded">
@@ -35,7 +49,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="bg-secondary p-6 rounded-lg">
+            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-6 rounded-lg border border-border/50 shadow-lg">
               <h2 className="text-2xl font-semibold mb-4">Development Methodology</h2>
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-background p-4 rounded">
@@ -77,7 +91,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="bg-secondary p-6 rounded-lg">
+            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-6 rounded-lg border border-border/50 shadow-lg">
               <h2 className="text-2xl font-semibold mb-4">Technology Stack</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -101,7 +115,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="bg-secondary p-6 rounded-lg">
+            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-6 rounded-lg border border-border/50 shadow-lg">
               <h2 className="text-2xl font-semibold mb-4">Get Started</h2>
               <div className="space-y-4">
                 <div className="bg-background p-4 rounded">
@@ -109,10 +123,10 @@ export default function Home() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <code className="text-sm bg-muted px-2 py-1 rounded flex-1">
-                        git clone https://github.com/your-username/blueberry-prompt-kit.git
+                        git clone https://github.com/cbarrett3/webapppromptpack.git
                       </code>
                       <button 
-                        onClick={() => navigator.clipboard.writeText('git clone https://github.com/your-username/blueberry-prompt-kit.git')}
+                        onClick={() => navigator.clipboard.writeText('git clone https://github.com/cbarrett3/webapppromptpack.git')}
                         className="px-3 py-1 bg-primary text-primary-foreground rounded text-sm hover:bg-primary/90 transition-colors"
                       >
                         Copy
@@ -143,13 +157,13 @@ export default function Home() {
                     <div className="flex items-center gap-2">
                       <a 
                         href="/api/download-framework"
-                        download="blueberry-prompt-kit-complete.txt"
+                        download="webapppromptpack-complete.txt"
                         className="px-4 py-2 bg-primary text-primary-foreground rounded text-sm hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
                       >
                         📦 Download Complete Framework
                       </a>
                       <button 
-                        onClick={() => navigator.clipboard.writeText('git clone https://github.com/your-username/blueberry-prompt-kit.git')}
+                        onClick={() => navigator.clipboard.writeText('git clone https://github.com/cbarrett3/webapppromptpack.git')}
                         className="px-3 py-1 bg-secondary text-secondary-foreground rounded text-sm hover:bg-secondary/90 transition-colors"
                       >
                         Copy Git Clone
@@ -169,7 +183,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="bg-secondary p-6 rounded-lg">
+            <section className="bg-gradient-to-br from-secondary to-secondary/80 p-6 rounded-lg border border-border/50 shadow-lg">
               <h2 className="text-2xl font-semibold mb-4">Framework Benefits</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-background p-4 rounded">

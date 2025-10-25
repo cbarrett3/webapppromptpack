@@ -3,8 +3,8 @@ import React from 'react'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Blueberry Prompt Kit Showcase',
-  description: 'A live demonstration of the Blueberry Prompt Kit framework',
+  title: 'webapppromptpack',
+  description: 'A live demonstration of the webapppromptpack framework - impossible to mess up',
 }
 
 export default function RootLayout({

@@ -45,6 +45,11 @@ validate_project_name() {
     if [[ ! "$1" =~ ^[a-zA-Z][a-zA-Z0-9_-]*$ ]]; then
         error_exit "Invalid project name: $1. Use only letters, numbers, hyphens, and underscores. Must start with a letter."
     fi
+    
+    # Check if directory already exists and is not empty
+    if [ -d "$1" ] && [ "$(ls -A "$1" 2>/dev/null)" ]; then
+        error_exit "Directory '$1' already exists and is not empty. Please choose a different name or remove the existing directory."
+    fi
 }
 
 # Cleanup function for error recovery
@@ -105,13 +110,13 @@ main() {
     
     # Database and API stack
     echo -e "${BLUE}🗄️ Installing database and API dependencies...${NC}"
-    if ! npm install @supabase/supabase-js drizzle-orm postgres @trpc/server @trpc/client @trpc/react-query @trpc/next @tanstack/react-query @tanstack/react-query-devtools zod better-auth @better-auth/drizzle @better-auth/client pino; then
+    if ! npm install @supabase/supabase-js drizzle-orm postgres @trpc/server @trpc/client @trpc/react-query @trpc/next @tanstack/react-query @tanstack/react-query-devtools zod better-auth @better-auth/client pino; then
         error_exit "Failed to install database and API dependencies. Please check your internet connection and try again."
     fi
     
     # External integrations
     echo -e "${BLUE}🔗 Installing external service dependencies...${NC}"
-    if ! npm install resend stripe @vercel/ai @ai-sdk/openai @ai-sdk/react trigger.dev; then
+    if ! npm install resend stripe ai @ai-sdk/openai @ai-sdk/react trigger.dev; then
         error_exit "Failed to install external service dependencies. Please check your internet connection and try again."
     fi
     
@@ -434,7 +439,7 @@ vi.mock('@/lib/trpc/client', () => ({
 EOF
 
     # Global CSS with design tokens
-    cat > app/globals.css << 'EOF'
+    cat > src/app/globals.css << 'EOF'
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -490,10 +495,11 @@ EOF
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
 EOF
@@ -586,12 +592,23 @@ EOF
     npm pkg set scripts.type-check="tsc --noEmit" || error_exit "Failed to update package.json scripts"
     npm pkg set scripts.build:analyze="ANALYZE=true npm run build" || error_exit "Failed to update package.json scripts"
     npm pkg set scripts.prepare="husky install" || error_exit "Failed to update package.json scripts"
+    npm pkg set scripts.add:supabase="npm install @supabase/supabase-js" || error_exit "Failed to update package.json scripts"
+    npm pkg set scripts.add:external="npm install resend stripe ai @ai-sdk/openai @ai-sdk/react trigger.dev" || error_exit "Failed to update package.json scripts"
+    npm pkg set scripts.add:devtools="npm install @tanstack/react-query-devtools" || error_exit "Failed to update package.json scripts"
+
+    # Initialize Git repository
+    echo -e "${BLUE}🔧 Initializing Git repository...${NC}"
+    git init || error_exit "Failed to initialize Git repository"
+    git add . || error_exit "Failed to stage initial files"
+    git commit -m "feat: initial webapppromptpack setup" || error_exit "Failed to create initial commit"
 
     # Setup Git hooks with Husky
     echo -e "${BLUE}🔧 Setting up Git hooks...${NC}"
-    npx husky install || error_exit "Failed to setup Husky"
-    npx husky add .husky/pre-commit "npx lint-staged" || error_exit "Failed to create pre-commit hook"
-    npx husky add .husky/commit-msg "npx --no -- commitlint --edit \$1" || error_exit "Failed to create commit-msg hook"
+    npx husky init || error_exit "Failed to setup Husky"
+    echo "npx lint-staged" > .husky/pre-commit || error_exit "Failed to create pre-commit hook"
+    chmod +x .husky/pre-commit || error_exit "Failed to make pre-commit hook executable"
+    echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg || error_exit "Failed to create commit-msg hook"
+    chmod +x .husky/commit-msg || error_exit "Failed to make commit-msg hook executable"
 
     # Create lint-staged configuration
     cat > .lintstagedrc.json << 'EOF'
@@ -641,7 +658,7 @@ EOF
     mkdir -p server/api || error_exit "Failed to create server directory"
     mkdir -p server/jobs || error_exit "Failed to create server/jobs directory"
     mkdir -p scripts || error_exit "Failed to create scripts directory"
-    mkdir -p app/api/trpc || error_exit "Failed to create tRPC API directory"
+    mkdir -p src/app/api/trpc || error_exit "Failed to create tRPC API directory"
 
     # Core utility functions
     cat > lib/utils.ts << 'EOF'
@@ -849,18 +866,18 @@ export type AppRouter = typeof appRouter
 EOF
 
     # Create tRPC API route directory
-    mkdir -p app/api/trpc/[trpc]
-    mkdir -p app/api/auth/[...all]
+    mkdir -p src/app/api/trpc/[trpc]
+    mkdir -p src/app/api/auth/[...all]
 
     # Better Auth API routes
-    cat > app/api/auth/[...all]/route.ts << 'EOF'
+    cat > src/app/api/auth/[...all]/route.ts << 'EOF'
 import { auth } from '@/lib/auth'
 
 export const { GET, POST } = auth.handler
 EOF
 
     # tRPC API route handler
-    cat > app/api/trpc/[trpc]/route.ts << 'EOF'
+    cat > src/app/api/trpc/[trpc]/route.ts << 'EOF'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { appRouter } from '@/lib/trpc/server'
 import { createTRPCContext } from '@/lib/trpc'
@@ -879,7 +896,7 @@ EOF
     # Better Auth configuration
     cat > lib/auth.ts << 'EOF'
 import { betterAuth } from 'better-auth'
-import { drizzleAdapter } from '@better-auth/drizzle'
+import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from './db'
 
 export const auth = betterAuth({
@@ -1010,7 +1027,7 @@ export const posts = pgTable('posts', {
 EOF
 
     # Root layout with providers
-    cat > app/layout.tsx << 'EOF'
+    cat > src/app/layout.tsx << 'EOF'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -1042,7 +1059,7 @@ export default function RootLayout({
 }
 EOF
 
-s    # Advanced Button component with modern patterns
+    # Advanced Button component with modern patterns
     cat > components/ui/button.tsx << 'EOF'
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -1318,7 +1335,7 @@ export function ErrorBoundary({ children, fallback: Fallback }: ErrorBoundaryPro
 EOF
 
     # Home page with tRPC example
-    cat > app/page.tsx << 'EOF'
+    cat > src/app/page.tsx << 'EOF'
 'use client'
 
 import { api } from '@/lib/trpc/client'
@@ -1459,17 +1476,17 @@ EOF
     if [ ! -f ".env.example" ]; then
         error_exit "Setup verification failed: .env.example not found"
     fi
-    if [ ! -f "app/api/trpc/[trpc]/route.ts" ]; then
+    if [ ! -f "src/app/api/trpc/[trpc]/route.ts" ]; then
         error_exit "Setup verification failed: tRPC API route not found"
     fi
-    if [ ! -f "app/api/auth/[...all]/route.ts" ]; then
+    if [ ! -f "src/app/api/auth/[...all]/route.ts" ]; then
         error_exit "Setup verification failed: Better Auth API route not found"
     fi
-    if [ ! -f "app/layout.tsx" ]; then
-        error_exit "Setup verification failed: app/layout.tsx not found"
+    if [ ! -f "src/app/layout.tsx" ]; then
+        error_exit "Setup verification failed: src/app/layout.tsx not found"
     fi
-    if [ ! -f "app/page.tsx" ]; then
-        error_exit "Setup verification failed: app/page.tsx not found"
+    if [ ! -f "src/app/page.tsx" ]; then
+        error_exit "Setup verification failed: src/app/page.tsx not found"
     fi
     if [ ! -f "types/index.ts" ]; then
         error_exit "Setup verification failed: types/index.ts not found"

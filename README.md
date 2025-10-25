@@ -11,14 +11,14 @@ __  _  __ ____\_ |__   ____ |  |__   ____ |  | |  | _____
 
 **Some of the best coming together to create something beautiful** - A full-stack framework that's impossible to mess up.
 
-## 🚀 One Command Setup
+## ✨ One Command Setup
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/cbarrett3/webchella/main/templates/setup-script.sh | bash -s my-app
 cd my-app && npm run dev
 ```
 
-## 🛠️ What's Included & Configured
+## 🌈 What's Included & Configured
 
 ### **Frontend**
 - **Next.js 16** (App Router) + TypeScript + Tailwind CSS 4+
@@ -40,7 +40,7 @@ cd my-app && npm run dev
 - **Full-Stack Agent** - Builds complete features
 - **Cursor Rules** - Consistent code quality
 
-## 🚀 How to Use
+## ☁️ How to Use
 
 ### **1. Start Development**
 ```bash
@@ -58,14 +58,14 @@ npm run build
 vercel --prod
 ```
 
-## 🎯 Why webchella?
+## ✨ Why webchella?
 
 - **Impossible to mess up** - Strict guardrails and proven patterns
 - **Type-safe end-to-end** - tRPC + TypeScript + Zod validation  
 - **AI-powered development** - Two agents working together
 - **Production-ready** - Everything configured and tested
 
-## 📚 Learn More
+## 🌟 Learn More
 
 - **[Live Showcase](https://webchella.dev)** - See it in action
 - **[Framework Docs](docs/framework/)** - Deep dive into the architecture

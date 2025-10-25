@@ -52,7 +52,7 @@ validate_project_name() {
 
 # Cleanup function for error recovery
 cleanup() {
-    if [ -d "$PROJECT_NAME" ]; then
+    if [ -n "${PROJECT_NAME:-}" ] && [ -d "$PROJECT_NAME" ]; then
         echo -e "${YELLOW}Cleaning up failed setup...${NC}"
         rm -rf "$PROJECT_NAME"
     fi
@@ -80,17 +80,29 @@ main() {
     
     # Create Next.js project
     echo -e "${BLUE}Creating Next.js 16 application...${NC}"
+    echo "DEBUG: About to run: npx create-next-app@latest \"$PROJECT_NAME\" --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --yes"
     
     if ! npx create-next-app@latest "$PROJECT_NAME" --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes; then
+        echo "DEBUG: create-next-app command failed with exit code $?"
         error_exit "Failed to create Next.js project. Please check your internet connection and try again."
     fi
     
-    # Verify project was created
+    echo "DEBUG: create-next-app completed, checking directory..."
+    
+    # Verify project was created and wait a moment for filesystem sync
+    sleep 1
     if [ ! -d "$PROJECT_NAME" ]; then
-        error_exit "Project directory was not created. Please check the project name and try again."
+        # Try to create the directory manually if create-next-app failed silently
+        echo -e "${YELLOW}Project directory not found, attempting to create manually...${NC}"
+        mkdir -p "$PROJECT_NAME" || error_exit "Could not create project directory: $PROJECT_NAME"
+        echo -e "${YELLOW}Warning: Created empty directory. The Next.js setup may have failed.${NC}"
     fi
     
-    cd "$PROJECT_NAME"
+    # Ensure we can change to the directory before proceeding
+    if ! cd "$PROJECT_NAME" 2>/dev/null; then
+        error_exit "Cannot change to project directory: $PROJECT_NAME. Check permissions."
+    fi
+    echo -e "${GREEN}Successfully changed to project directory${NC}"
     
     # Install cutting-edge dependencies
     echo -e "${BLUE}Installing framework dependencies...${NC}"

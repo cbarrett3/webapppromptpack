@@ -294,7 +294,7 @@ import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
 
 const config: Config = {
-  darkMode: ['class'],
+  darkMode: 'class',
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -682,7 +682,7 @@ export function getDb() {
     if (!connectionString) {
       // For development, provide a fallback connection string
       const fallbackUrl = 'postgresql://localhost:5432/webapppromptpack_dev'
-      logger.warn('DATABASE_URL not set, using fallback:', fallbackUrl)
+      logger.warn({ fallbackUrl }, 'DATABASE_URL not set, using fallback')
       client = postgres(fallbackUrl, {
         max: 10,
         idle_timeout: 20,
@@ -992,7 +992,7 @@ async function runMigrations() {
     await migrate(db, { migrationsFolder: './drizzle' })
     logger.info('Database migrations completed successfully')
   } catch (error) {
-    logger.error('Migration failed:', error)
+    logger.error({ error }, 'Migration failed')
     process.exit(1)
   }
 }
@@ -1240,30 +1240,30 @@ export function useAuth() {
   const [user, setUser] = useState<{ id: string; email: string; name: string } | null>(null)
   const [loading, setLoading] = useState(false)
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string) => {
     setLoading(true)
     try {
       // TODO: Implement Better Auth integration
-      logger.debug('Sign in attempt:', { email })
+      logger.debug({ email }, 'Sign in attempt')
       setUser({ id: '1', email, name: 'User' })
       return { success: true }
     } catch (error) {
-      logger.error('Sign in failed:', error)
+      logger.error({ error }, 'Sign in failed')
       throw error
     } finally {
       setLoading(false)
     }
   }
 
-  const signUp = async (email: string, password: string, name: string) => {
+  const signUp = async (email: string, name: string) => {
     setLoading(true)
     try {
       // TODO: Implement Better Auth integration
-      logger.debug('Sign up attempt:', { email, name })
+      logger.debug({ email, name }, 'Sign up attempt')
       setUser({ id: '1', email, name })
       return { success: true }
     } catch (error) {
-      logger.error('Sign up failed:', error)
+      logger.error({ error }, 'Sign up failed')
       throw error
     } finally {
       setLoading(false)
@@ -1277,7 +1277,7 @@ export function useAuth() {
       logger.debug('Sign out attempt')
       setUser(null)
     } catch (error) {
-      logger.error('Sign out failed:', error)
+      logger.error({ error }, 'Sign out failed')
       throw error
     } finally {
       setLoading(false)

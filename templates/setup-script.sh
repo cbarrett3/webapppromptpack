@@ -78,8 +78,12 @@ main() {
     echo -e "${BLUE}Creating Next.js 16 application...${NC}"
     echo -e "${BLUE}Running: npx create-next-app@latest $PROJECT_NAME --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --yes${NC}"
     
-    if ! npx create-next-app@latest "$PROJECT_NAME" --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes; then
-        echo -e "${RED}create-next-app command failed. Checking current directory...${NC}"
+    # Run create-next-app and capture the exit code
+    npx create-next-app@latest "$PROJECT_NAME" --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes
+    CREATE_EXIT_CODE=$?
+    
+    if [ $CREATE_EXIT_CODE -ne 0 ]; then
+        echo -e "${RED}create-next-app command failed with exit code $CREATE_EXIT_CODE. Checking current directory...${NC}"
         ls -la
         error_exit "Failed to create Next.js project. Please check your internet connection and try again."
     fi

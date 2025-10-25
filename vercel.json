@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "showcase/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "distDir": "showcase/.next"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "showcase/$1"
+    }
+  ]
+}

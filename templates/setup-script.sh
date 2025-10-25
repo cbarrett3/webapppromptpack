@@ -76,28 +76,17 @@ main() {
     
     # Create Next.js project
     echo -e "${BLUE}Creating Next.js 16 application...${NC}"
-    echo -e "${BLUE}Running: npx create-next-app@latest $PROJECT_NAME --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --yes${NC}"
     
-    # Run create-next-app and capture the exit code
-    npx create-next-app@latest "$PROJECT_NAME" --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes
-    CREATE_EXIT_CODE=$?
-    
-    if [ $CREATE_EXIT_CODE -ne 0 ]; then
-        echo -e "${RED}create-next-app command failed with exit code $CREATE_EXIT_CODE. Checking current directory...${NC}"
-        ls -la
+    if ! npx create-next-app@latest "$PROJECT_NAME" --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes; then
         error_exit "Failed to create Next.js project. Please check your internet connection and try again."
     fi
     
     # Verify project was created
-    echo -e "${BLUE}Verifying project creation...${NC}"
     if [ ! -d "$PROJECT_NAME" ]; then
-        echo -e "${RED}Project directory not found. Current directory contents:${NC}"
-        ls -la
         error_exit "Project directory was not created. Please check the project name and try again."
     fi
     
-    echo -e "${GREEN}Project directory created successfully${NC}"
-    cd "$PROJECT_NAME" || error_exit "Failed to enter project directory"
+    cd "$PROJECT_NAME"
     
     # Install cutting-edge dependencies
     echo -e "${BLUE}Installing framework dependencies...${NC}"

@@ -669,24 +669,36 @@ import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
 import * as schema from './db/schema'
 
-const connectionString = process.env['DATABASE_URL']!
+let db: ReturnType<typeof drizzle>
+let client: ReturnType<typeof postgres>
 
-if (!connectionString) {
-  throw new Error('DATABASE_URL environment variable is not set')
+export function getDb() {
+  if (!db) {
+    const connectionString = process.env['DATABASE_URL']
+    
+    if (!connectionString) {
+      throw new Error('DATABASE_URL environment variable is not set')
+    }
+    
+    client = postgres(connectionString, {
+      max: 10,
+      idle_timeout: 20,
+      connect_timeout: 10,
+    })
+    
+    db = drizzle(client, { schema })
+  }
+  
+  return db
 }
 
-// Create connection with error handling
-const client = postgres(connectionString, {
-  max: 10,
-  idle_timeout: 20,
-  connect_timeout: 10,
-})
-
-export const db = drizzle(client, { schema })
+// For backward compatibility
+export { getDb as db }
 
 // Test database connection
 export async function testConnection() {
   try {
+    getDb() // Initialize connection
     await client`SELECT 1`
     // Connection successful - no logging needed in production
   } catch {
@@ -698,13 +710,12 @@ EOF
     # tRPC configuration
     cat > lib/trpc.ts << 'EOF'
 import { initTRPC, TRPCError } from '@trpc/server'
-import { type CreateNextContextOptions } from '@trpc/server/adapters/next'
 import { auth } from './auth'
 
-export const createTRPCContext = async (opts: CreateNextContextOptions) => {
+export const createTRPCContext = async (opts: { req: any; res?: any }) => {
   try {
     const session = await auth.api.getSession({
-      headers: opts.req.headers
+      headers: new Headers(Object.entries(opts.req.headers).map(([key, value]) => [key, Array.isArray(value) ? value.join(', ') : String(value || '')]))
     })
     
     return {
@@ -795,7 +806,7 @@ import { router, publicProcedure, protectedProcedure } from '../trpc'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { eq } from 'drizzle-orm'
-import { db } from '../db'
+import { getDb } from '../db'
 import { users, posts } from '../db/schema'
 
 export const appRouter = router({
@@ -808,6 +819,7 @@ export const appRouter = router({
   users: router({
     getCurrent: protectedProcedure.query(async ({ ctx }) => {
       try {
+        const db = getDb()
         const result = await db.select().from(users).where(eq(users.id, ctx.user.id)).limit(1)
         return result[0] || null
       } catch {
@@ -823,6 +835,7 @@ export const appRouter = router({
   posts: router({
     getAll: publicProcedure.query(async () => {
       try {
+        const db = getDb()
         return await db.select().from(posts)
       } catch {
         throw new TRPCError({
@@ -840,6 +853,7 @@ export const appRouter = router({
       }))
       .mutation(async ({ ctx, input }) => {
         try {
+          const db = getDb()
           const result = await db.insert(posts).values({
             ...input,
             userId: ctx.user.id,
@@ -866,7 +880,8 @@ EOF
     cat > src/app/api/auth/[...all]/route.ts << 'EOF'
 import { auth } from '@/lib/auth'
 
-export const { GET, POST } = auth.handler
+export const GET = auth.handler
+export const POST = auth.handler
 EOF
 
     # tRPC API route handler
@@ -880,7 +895,7 @@ const handler = (req: Request) =>
     endpoint: '/api/trpc',
     req,
     router: appRouter,
-    createContext: createTRPCContext,
+    createContext: () => createTRPCContext({ req, res: {} as any }),
   })
 
 export { handler as GET, handler as POST }
@@ -947,11 +962,12 @@ EOF
     # Create database migration script
     cat > scripts/migrate.ts << 'EOF'
 import { migrate } from 'drizzle-orm/postgres-js/migrator'
-import { db, testConnection } from '../lib/db'
+import { getDb, testConnection } from '../lib/db'
 
 async function runMigrations() {
   try {
     await testConnection()
+    const db = getDb()
     await migrate(db, { migrationsFolder: './drizzle' })
   } catch (error) {
     console.error('Migration failed:', error)

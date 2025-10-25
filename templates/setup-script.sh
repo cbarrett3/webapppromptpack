@@ -80,6 +80,11 @@ main() {
         error_exit "Failed to create Next.js project. Please check your internet connection and try again."
     fi
     
+    # Verify project was created
+    if [ ! -d "$PROJECT_NAME" ]; then
+        error_exit "Project directory was not created. Please check the project name and try again."
+    fi
+    
     cd "$PROJECT_NAME"
     
     # Install cutting-edge dependencies
